@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {"dev": "vite",
-    "test": "node test/findNearest.test.js && node test/spawnEdge.test.js && node test/health.test.js && node test/enemyFootman.test.js && node test/unitMovement.test.js && node test/unitSpeed.test.js && node test/enemySpeed.test.js && node test/enemyBuildingCollision.test.js && node test/buildingSpawnInterval.test.js && node test/tower-damage.test.js && node test/castle.test.js && node test/goldReward.test.js"
+    "test": "node test/findNearest.test.js && node test/spawnEdge.test.js && node test/health.test.js && node test/enemyFootman.test.js && node test/unitMovement.test.js && node test/unitSpeed.test.js && node test/enemySpeed.test.js && node test/enemyBuildingCollision.test.js && node test/buildingSpawnInterval.test.js && node test/tower-damage.test.js && node test/castle.test.js && node test/goldReward.test.js && node test/animAdapterDraw.test.js"
   },
   "repository": {
     "type": "git",

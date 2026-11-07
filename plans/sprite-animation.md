@@ -149,6 +149,14 @@ Visually verify the footman animations in the browser.
 
 ## Deliverables
 
+## New Milestone: Fix footman rendering translation bug
+
+- Identify and correct the translation logic in `src/animation/animAdapter.js` that caused footman units to be invisible. **Completed**.
+- Updated the draw method to correctly position the sprite on the canvas.
+- Ensured the fix does not affect mirroring behavior.
+- Added a test `animAdapterDraw.test.js` to verify that the footman is drawn at the expected coordinates. **Passed**.
+- Marked this milestone as completed.
+
 1. Wargus source references documenting the original animation behavior.
 2. Verified footman frame mapping.
 3. Original extracted or validated sprite asset.

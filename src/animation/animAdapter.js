@@ -163,11 +163,16 @@ export class AnimationAdapter {
     // Save current context state
     ctx.save();
     
-    // Apply scaling and translation
+    // Apply translation and scaling correctly
+    if (drawScaleX < 0) {
+      // When mirroring, translate to the right edge before scaling
+      ctx.translate(x + size, y);
+    } else {
+      ctx.translate(x, y);
+    }
     ctx.scale(drawScaleX, scaleY);
-    ctx.translate(-x, -y);
     
-    // Draw the frame
+    // Draw the frame at the origin after transformation
     ctx.drawImage(
       spriteImage,
       srcX, srcY, FRAME_SIZE, FRAME_SIZE,
