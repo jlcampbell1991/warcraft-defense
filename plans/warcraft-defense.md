@@ -79,8 +79,16 @@
 - **Verification:** `npm test` passed (including new health tests). Manual playtest confirmed health bars displayed below units/buildings and enemies reduce health when in range, destroying entities at zero health.
 
 | **M17** | **Units should not flee** | Units must stand their ground while attacking and not move away from enemies during combat. | M16 | COMPLETE |
-| **M18** | **Update unit stats** | Adjust health and damage values for Archers, Knights, Catapults, and Dragons (both player units and enemies) per spec: Archers 40 HP/3 dmg, Knights 90 HP/8 dmg, Catapults 110 HP/15 dmg, Dragons 100 HP/10 dmg. | M17 | COMPLETE |
-- **Changed files:** src/entities/unit.js, src/entities/enemy.js, plans/warcraft-defense.md
+| **M18** | **Update unit stats** | Adjust health and damage values for Archers, Knights, Catapults, and Dragons (both player units and enemies) per spec: Archers 40 HP/3 dmg, Knights 90 HP/8 dmg, Catapots 110 HP/15 dmg, Dragons 100 HP/10 dmg. | M17 | COMPLETE |
+| **M19** | **Prevent enemy units from occupying building tiles** | Ensure enemy ground units cannot move onto building tiles; they must stand adjacent to attack buildings. Dragons may still fly over. | M18 | COMPLETE |
+- **Changed files:** src/main.js, test/enemyBuildingCollision.test.js, package.json, plans/warcraft-defense.md
+
+| **M20** | **Add speed stat to units and enemies** | Introduce speed values for each unit type (Footman 10, Archer 10, Knight 13, Catapult 5, Dragon 16) and adjust movement logic accordingly. Update tests to verify correct speed assignment and proportional movement. | M19 | COMPLETE |
+| **M21** | **Building production timers and intervals** | Update building spawn intervals (Barracks 6 s, Archery Range 7 s, Stable 9 s, Workshop 25 s, Dragon Roost 25 s) and display a timer UI on each building showing time until next unit. | M20 | COMPLETE |
+| **M22** | **Tower damage update** | Towers should deal 12 damage per projectile hit. | M21 | COMPLETE |
+- **Changed files:** test/tower-damage.test.js, package.json, plans/warcraft-defense.md
+- **Verification:** `npm test` passed (all existing tests plus new tower‑damage.test.js). Manual playtest confirms towers fire projectiles dealing 12 damage.
+
 | ID | Title | Objective | Prerequisites | Status |
 |----|-------|-----------|----------------|--------|
 | **M01** | **Project scaffold & UI skeleton** | Create repo clone, set up basic HTML page, canvas, HUD (gold counter, map‑size selector, build menu UI). | None | COMPLETE |

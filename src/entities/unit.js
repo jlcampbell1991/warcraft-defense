@@ -6,7 +6,16 @@ export class Unit {
     this.y = y;
     this.size = size;
     // Simple speed in pixels per millisecond
-    this.speed = 0.05; // 0.05 px/ms => 50 px/s
+    const BASE_SPEED = 0.05; // base speed for stat 10
+    const SPEED_STATS = {
+      Footman: 10,
+      Archer: 10,
+      Knight: 13,
+      Catapult: 5,
+      Dragon: 16,
+    };
+    const stat = SPEED_STATS[type] || 10;
+    this.speed = BASE_SPEED * (stat / 10); // computed speed
     // Ranged unit properties (default for melee units)
     this.range = null; // in pixels, null means melee
     this.shotCooldown = 2000; // ms between shots for ranged units

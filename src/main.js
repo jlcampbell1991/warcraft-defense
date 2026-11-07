@@ -314,7 +314,11 @@ function initializeGame() {
           if (proj.type === 'Catapult' && enemy.type === 'Dragon') {
             // No damage
           } else {
-            enemy.health -= 100;
+            if (proj.type === 'Tower') {
+                enemy.health -= 12;
+            } else {
+                enemy.health -= 100;
+            }
           }
           proj.isAlive = false;
         }
