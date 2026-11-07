@@ -119,7 +119,11 @@ Animation selection must use actual game state.
 
 Attack and death animations must not be interrupted by movement or idle transitions.
 
+✅ **COMPLETE** - Implemented footman animation integration with the unit class. The animation is now properly synchronized with the unit's state, and the draw method uses the animation adapter for footman units.
+
 ## Phase 6: Testing
+
+✅ **COMPLETE** – Added integration tests for footman animation, verified all existing tests pass, and confirmed no runtime errors in Node environment.
 
 Add tests under `test/` using the existing Node assert and dynamic-import conventions.
 
