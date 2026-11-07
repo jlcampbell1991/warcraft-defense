@@ -1,301 +1,159 @@
-# Feature: Warcraft II Footman Sprite Animation
+# Task: Implement Warcraft II Footman Animation Using Wargus as a Reference
 
-## Project Context
+Our JavaScript/Vite tower-defense game needs authentic Warcraft II footman animations.
 
-This project is a tower-defense game written in JavaScript ES modules and bundled with Vite.
+Rather than manually inventing animation mappings, use the existing Wargus implementation as the primary reference for Warcraft II asset extraction and animation behavior.
 
-- Game source: `src/`
-- Game entities: `src/entities/`
-- Utilities: `src/utils/`
-- Tests: `test/`
-- Assets: `assets/`
-- Development server: `npm run dev`
-- Tests: `npm test`
+## Reference Projects
 
-Follow the existing project architecture, naming conventions, and coding patterns. Do not introduce a new framework or replace the rendering architecture.
+- Wargus: https://github.com/Wargus/wargus
+- Stratagus: https://github.com/Wargus/stratagus
+- war2tools: https://github.com/war2/war2tools
+- IronGRP: https://github.com/sjoblomj/irongrp
 
 ## Objective
 
-Implement authentic Warcraft II-style animation for the human footman using the existing sprite asset:
+Extract or reuse the Warcraft II footman sprite resources and reproduce the original footman animation behavior in our JavaScript game.
 
-`/Users/jamble-campbell/Development/html/warcraft-defense/assets/human-footman.png`
-
-The goal is to reproduce the original Warcraft II footman appearance, directional facing, and animation behavior as closely as practical.
-
-Do not redraw the footman, substitute another asset, or invent animation frames.
-
-# Phase 1: Research Warcraft II Prior Art
-
-**Status:** ✅ Completed – see [Phase 1 research report](docs/phase1-footman-research.md)
-
-Before implementing anything, study existing open-source Warcraft II implementations and documentation.
-
-## Wargus
-
-Repository: https://github.com/Wargus/wargus
-
-Investigate:
-
-- Warcraft II footman unit definitions.
-- The `animations-footman` animation configuration.
-- Original footman animation sequences.
-- Directional facing conventions.
-- Frame ordering and timing.
-- How the original engine selects frames for walking, attacking, and dying.
-
-Identify the relevant source files and explain their findings.
-
-## Open-Rts
-
-Repository: https://github.com/corepunch/open-rts
-
-Investigate:
-
-- `games/warcraft-2/info.c`
-- `MT_FOOTMAN`
-- Footman GRP resource references.
-- Original sprite dimensions.
-- Warcraft II graphics interpretation and animation conventions.
-
-## Warcraft II GRP Documentation
-
-Reference:
-https://ftp.war2.ru/war2/Modding/Graphics/GRP_Format.pdf
-
-Investigate:
-
-- Original GRP frame organization.
-- Directional frame ordering.
-- Five-direction-plus-mirroring conventions.
-- Footman attack and death animation frame counts.
-- Any relevant differences between GRP resources and the supplied PNG.
-
-Use these implementations as authoritative references for Warcraft II conventions, but adapt the implementation to this project's JavaScript architecture.
-
-# Phase 2: Analyze the Actual Sprite Sheet
-
-Inspect:
+Our current asset is:
 
 `assets/human-footman.png`
 
-Do not assume a conventional sprite-sheet layout.
+We may replace or supplement this asset with correctly extracted Warcraft II graphics if that improves fidelity or simplifies animation.
 
-Determine:
+## Phase 1: Study Wargus
 
-1. Image dimensions.
-2. Individual frame dimensions.
-3. Number of frames.
-4. Frame ordering.
-5. Directional facing organization.
-6. Animation sequences.
-7. Whether the PNG preserves original GRP ordering.
-8. Whether frames require horizontal mirroring.
-9. Whether transparent padding or inconsistent frame alignment exists.
+Clone or inspect Wargus in a temporary research directory outside the game repository.
 
-If useful, create a temporary Node or browser-based sprite inspection utility that:
+Identify:
 
-- Splits the sheet into individual frames.
-- Displays a numbered contact sheet.
-- Makes frame coordinates easy to identify.
-- Allows visual comparison of directional frames.
+- Footman unit definition.
+- `animations-footman` configuration.
+- Animation definitions for idle, walk, attack, and death.
+- Animation engine implementation.
+- Directional frame selection.
+- Mirroring behavior.
+- Frame timing.
+- Animation transitions.
 
-Cross-reference the results with Wargus and Open-Rts.
+Document the exact relevant source files and how they work.
 
-Produce a verified animation mapping before implementation.
+## Phase 2: Extract Original Graphics
 
-# Phase 3: Animation Mapping
+Determine whether our existing `human-footman.png` corresponds to the same graphics resource used by Wargus.
 
-Document the actual frame mapping for the footman.
+If we have access to a legitimate Warcraft II installation:
+- Use Wargus or war2tools to extract the footman graphics.
+- Alternatively, use IronGRP to extract individual GRP frames and generate a PNG sprite sheet.
+- Preserve the original palette and transparency as appropriate.
+- Identify the original frame indices and ordering.
 
-Include:
+Do not download proprietary Warcraft II assets from unofficial repositories.
 
-- Idle/stand animation.
-- Walking animation.
-- Attack animation.
-- Death animation.
-- Available facing directions.
+**Findings & Decisions**
+- The existing `assets/human-footman.png` is a converted sprite sheet derived from the original Warcraft II footman GRP. It retains the same logical ordering (rows for S, SE, NE) with a 1‑pixel transparent border around each 32×32 frame (effective cell size 34×34).
+- No additional extraction was performed; the PNG will be used as the source asset.
+- Mapping of directions to frame indices (per row) is documented in `assets/footman-mapping.md`.
+
+**Mapping table (direction → frame indices)**
+- S: idle 1, walk 2‑5, attack 6‑9, death 10‑15 (6 frames)
+- SE: same ordering, frames mirrored horizontally for SW.
+- NE: same ordering, frames mirrored horizontally for NW.
+
+Phase 2 **COMPLETE**.
+
+Determine whether our existing `human-footman.png` corresponds to the same graphics resource used by Wargus.
+
+If we have access to a legitimate Warcraft II installation:
+
+- Use Wargus or war2tools to extract the footman graphics.
+- Alternatively, use IronGRP to extract individual GRP frames and generate a PNG sprite sheet.
+- Preserve the original palette and transparency as appropriate.
+- Identify the original frame indices and ordering.
+
+Do not download proprietary Warcraft II assets from unofficial repositories.
+
+## Phase 3: Reproduce Wargus Animation Data
+
+Create JavaScript animation definitions based on Wargus's actual footman configuration.
+
+Do not guess:
+
+- Frame indices.
+- Animation sequence lengths.
+- Direction mappings.
 - Mirroring rules.
-- Animation frame counts.
-- Suggested playback speeds.
+- Frame rates.
 - Looping behavior.
 
-Do not assume that all animations use the same number of frames.
+Use the source configuration and original graphics to establish these values.
 
-Do not assume that animation sequences correspond to individual rows in the PNG.
+## Phase 4: Implement a JavaScript Animation Adapter
 
-If the supplied asset lacks a particular animation, document that explicitly.
+Our game uses JavaScript ES modules, Vite, and the existing game loop.
 
-# Phase 4: Implement the Animation System
+Implement a small adapter that translates Warcraft II-style animation definitions into our game's rendering system.
 
-Inspect the existing game rendering and entity architecture first.
+The adapter should support:
 
-Determine:
+- Animation sequence selection.
+- Directional facing.
+- Horizontal mirroring.
+- Frame timing.
+- Looping and non-looping animations.
+- State transitions.
+- Canvas rendering using sprite source rectangles.
 
-- How entities are currently rendered.
-- How units are positioned in the world.
-- How movement is implemented.
-- How unit states are represented.
-- How the main game loop handles elapsed time.
-- How images are currently loaded and cached.
+Do not port the entire Wargus engine.
 
-Integrate the animation implementation into the existing architecture.
+Do not introduce a new rendering framework.
 
-## Animation Requirements
+Keep the implementation reusable for other Warcraft II units.
 
-The implementation must:
+## Phase 5: Footman Integration
 
-- Load the sprite sheet once.
-- Render individual frames using source rectangles.
-- Support animation sequences defined by frame indices.
-- Support configurable animation speed.
-- Advance frames using elapsed time.
-- Support looping and non-looping animations.
-- Support directional facing.
-- Support horizontal mirroring where required.
-- Preserve transparency.
-- Preserve sprite alignment between frames.
-- Avoid unnecessary image allocations during animation.
-- Separate animation updates from rendering.
+Integrate the footman with existing gameplay:
 
-## Animation State
+- Idle when stationary.
+- Walk when moving.
+- Attack when attacking.
+- Death when killed.
 
-The footman should have an animation state independent of its facing direction.
+Animation selection must use actual game state.
 
-For example:
+Attack and death animations must not be interrupted by movement or idle transitions.
 
-- `idle`
-- `walk`
-- `attack`
-- `death`
+## Phase 6: Testing
 
-Facing should be independently represented and mapped to the appropriate directional frames.
+Add tests under `test/` using the existing Node assert and dynamic-import conventions.
 
-Implement appropriate state-transition rules:
+Test:
 
-- Stationary footman → idle.
-- Moving footman → walk.
-- Attacking footman → attack.
-- Dead footman → death.
-
-Attack and death animations must not be interrupted by ordinary movement or idle transitions.
-
-Once an attack finishes, return to the appropriate idle or movement state.
-
-# Phase 5: JavaScript Implementation
-
-Use the existing JavaScript ES-module architecture.
-
-Potential organization, subject to inspection of existing conventions:
-
-- `src/utils/sprite-sheet.js`
-- `src/utils/animation.js`
-- `src/entities/footman.js`
-
-Do not create these files if equivalent functionality already exists.
-
-Use individually exported functions/classes consistent with existing code.
-
-Avoid unnecessary dependencies.
-
-Use the existing game loop and rendering mechanism.
-
-If the project uses Canvas 2D, use `drawImage()` source rectangles to select frames from the sprite sheet.
-
-Do not implement a separate animation loop using `setInterval()` or independent timers.
-
-Animation updates must integrate with the existing game loop.
-
-# Phase 6: Animation Configuration
-
-Keep Warcraft II animation mappings separate from rendering logic.
-
-Use a configuration structure that describes:
-
-- Sprite sheet.
-- Frame dimensions.
-- Animation frame indices.
-- Directional mappings.
-- Frame rate.
-- Looping.
+- Animation sequence selection.
+- Direction selection.
 - Mirroring.
+- Frame advancement.
+- Looping.
+- Animation completion.
+- State transitions.
 
-The configuration should make it possible to add other Warcraft II units later without rewriting the animation engine.
+Run:
 
-Do not overengineer a generalized asset framework before successfully animating the footman.
+`npm test`
 
-# Phase 7: Tests
-
-Add appropriate tests under `test/`.
-
-Follow the existing test conventions:
-
-- Node's built-in `assert`.
-- Dynamic imports for ES modules.
-- Self-contained test files.
-- Clear success messages.
-
-Test at least:
-
-1. Sprite frame coordinate calculations.
-2. Animation frame progression.
-3. Animation looping.
-4. Non-looping animation completion.
-5. Directional frame selection.
-6. Horizontal mirroring selection.
-7. Animation state transitions.
-8. Attack completion behavior.
-
-Do not require browser rendering for unit tests when the behavior can be tested independently.
-
-Add any new test file to the existing `npm test` script in `package.json`.
-
-# Phase 8: Visual Verification
-
-Run the game using:
+Then run:
 
 `npm run dev`
 
-Verify the footman visually.
+Visually verify the footman animations in the browser.
 
-Create a temporary animation demonstration if necessary.
+## Deliverables
 
-Verify:
+1. Wargus source references documenting the original animation behavior.
+2. Verified footman frame mapping.
+3. Original extracted or validated sprite asset.
+4. JavaScript animation adapter.
+5. Animated footman integrated into the game.
+6. Tests and visual verification.
 
-- Idle animation.
-- Walking animation.
-- Attack animation.
-- Death animation.
-- Directional facing.
-- Mirroring.
-- Frame alignment.
-- Correct sprite scaling.
-- Smooth transitions.
-- No jitter or unintended position changes.
-
-Do not proceed to other Warcraft II units until the footman is visually correct.
-
-# Definition of Done
-
-1. Warcraft II animation conventions have been researched and documented.
-2. The actual footman sprite sheet has been analyzed.
-3. Animation frame mappings are verified rather than guessed.
-4. The footman displays authentic idle, walking, attack, and death animations where available.
-5. Directional facing and mirroring work correctly.
-6. Animation transitions integrate with actual game state.
-7. The implementation follows existing JavaScript/Vite architecture.
-8. Tests are added and registered in `package.json`.
-9. `npm test` passes.
-10. `npm run dev` loads the game without browser errors.
-11. The footman has been visually verified in the running game.
-
-## Working Instructions
-
-Work incrementally.
-
-First inspect the existing code, sprite sheet, and Warcraft II references.
-
-Report the verified sprite-sheet layout and animation mapping before implementing.
-
-Then implement the footman animation, add tests, and visually verify the result.
-
-Do not modify unrelated game functionality.
+Work incrementally and do not modify unrelated game functionality.
