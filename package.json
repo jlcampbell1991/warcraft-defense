@@ -1,0 +1,23 @@
+{
+  "name": "warcraft-defense",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {"dev": "vite",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jlcampbell1991/warcraft-defense.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jlcampbell1991/warcraft-defense/issues"
+  },
+  "homepage": "https://github.com/jlcampbell1991/warcraft-defense#readme",
+  "devDependencies": {
+    "vite": "^8.3.6"
+  }
+}
