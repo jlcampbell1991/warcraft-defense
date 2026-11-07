@@ -1,6 +1,7 @@
 // src/entities/building.js
 export class Building {
   constructor(type, x, y, size) {
+    this.pendingProduction = false;
     this.type = type; // "Barracks", "Tower", "Wall"
     this.x = x; // top-left corner in pixels
     this.y = y;
@@ -102,7 +103,7 @@ export class Building {
   }
 
   canSpawn(now) {
-    return this.spawnInterval > 0 && (now - this.lastSpawn) >= this.spawnInterval;
+    return this.spawnInterval > 0 && !this.pendingProduction && (now - this.lastSpawn) >= this.spawnInterval;
   }
 }
 

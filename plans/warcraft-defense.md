@@ -87,6 +87,7 @@
 | **M21** | **Building production timers and intervals** | Update building spawn intervals (Barracks 6 s, Archery Range 7 s, Stable 9 s, Workshop 25 s, Dragon Roost 25 s) and display a timer UI on each building showing time until next unit. | M20 | COMPLETE |
 | **M22** | **Tower damage update** | Towers should deal 12 damage per projectile hit. | M21 | COMPLETE |
 | **M23** | **Building HP and cost update** | Add HP values for each building type and update gold costs; set starting gold to 3000. | M22 | COMPLETE |
+| **M26** | **Player castle implementation** | Add a starting castle composed of four tower buildings (2500 HP each) positioned in a block. Implement loss condition when all castle towers are destroyed. | M23 | INCOMPLETE |
 | **M24** | **Gold-based unit production and rewards** | Implement gold costs for unit production, pause production if insufficient gold, FIFO release, free unit on building creation, gold reward equal to unit cost on enemy kill, and notification on insufficient gold. | M23 | COMPLETE |
 | **M25** | **Add range stat to units and towers** | Introduce a `range` attribute for all unit and tower types; define values: Dragons 4, Catapults 8, Knights 1, Archers 5, Footman 1. Update combat logic to respect range when attacking; ensure ranged units only attack when target within range. | M24 | COMPLETE |
 - **Changed files:** src/entities/unit.js, src/main.js, test/range.test.js, plans/warcraft-defense.md

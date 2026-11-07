@@ -1,6 +1,7 @@
 // src/main.js
 import { initUI, initStartScreen } from './ui.js';
 import { Building } from './entities/building.js';
+import { placeCastle } from './castle.js';
 import { Unit } from './entities/unit.js';
 import { Enemy } from './entities/enemy.js';
 import { Projectile } from './entities/projectile.js';
@@ -31,6 +32,7 @@ const MAX_ENTITIES = 200; // maximum total units and enemies
 
 // Global game state attached to window for UI access
 window.gameState = {
+  gameOver: false,
   gold: 3000,
   selectedBuilding: { type: null, cost: 0 },
   buildings: [],
@@ -97,6 +99,9 @@ function initializeGame() {
   // Initialize to default (medium) size
   setMapSize('medium');
 
+  // Place the initial player castle
+  placeCastle(window.gameState);
+
   // Initialize UI (HUD, menus)
   initUI();
   updateGoldUI();
@@ -157,6 +162,11 @@ function initializeGame() {
   function loop() {
     const now = performance.now();
     const state = window.gameState;
+    // If the game is over, stop the loop
+    if (state.gameOver) {
+      console.log('Game Over');
+      return;
+    }
     const delta = state.lastFrameTime ? now - state.lastFrameTime : 0;
     state.lastFrameTime = now;
 
@@ -418,6 +428,12 @@ function initializeGame() {
         // Remove dead units and buildings
     state.units = state.units.filter(u => u.health > 0);
     state.buildings = state.buildings.filter(b => b.health > 0);
+    // Check for castle destruction (loss condition)
+    const castleRemaining = state.buildings.some(b => b.isCastle);
+    if (!castleRemaining) {
+      console.log('Game Over: Castle destroyed');
+      state.gameOver = true;
+    }
     // Draw projectiles and enemies
     state.projectiles.forEach(p => p.draw(ctx));
     state.enemies.forEach(e => e.draw(ctx));
