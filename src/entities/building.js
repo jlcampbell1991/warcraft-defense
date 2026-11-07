@@ -44,13 +44,13 @@ export class Building {
     this.lastSpawn = 0;
     // Health properties for buildings
     const BUILDING_HEALTH = {
-      Barracks: 200,
-      Tower: 150,
+      Barracks: 800,
+      Tower: 100,
       Wall: 100,
-      Stable: 200,
-      ArcheryRange: 200,
-      Workshop: 200,
-      DragonRoost: 300,
+      Stable: 500,
+      ArcheryRange: 600,
+      Workshop: 775,
+      DragonRoost: 500,
     };
     const maxHealth = BUILDING_HEALTH[type] || 100;
     this.maxHealth = maxHealth;

@@ -22,7 +22,7 @@ const MAX_ENTITIES = 200; // maximum total units and enemies
 
 // Global game state attached to window for UI access
 window.gameState = {
-  gold: 500,
+  gold: 3000,
   selectedBuilding: { type: null, cost: 0 },
   buildings: [],
   units: [],

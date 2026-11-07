@@ -16,9 +16,9 @@ const assert = require('assert');
 
   // Building health test
   const barracks = new Building('Barracks', 0, 0, 20);
-  assert.strictEqual(barracks.maxHealth, 200, 'Barracks maxHealth should be 200');
-  assert.strictEqual(barracks.health, 200, 'Barracks initial health should be 200');
-  barracks.health -= 250; // overkill
+  assert.strictEqual(barracks.maxHealth, 800, 'Barracks maxHealth should be 800');
+  assert.strictEqual(barracks.health, 800, 'Barracks initial health should be 800');
+  barracks.health -= 850; // overkill
   assert.ok(barracks.health <= 0, 'Barracks health should be <= 0 after overkill');
 
   console.log('health.test passed');
