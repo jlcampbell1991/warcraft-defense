@@ -70,9 +70,10 @@
 | **M04** | **Enemy stream (basic)** | Continuous spawning of enemy Footmen from the right side, moving along a straight path toward player base. | M03 | COMPLETE |
 - **Changed files:** src/entities/enemy.js, src/main.js
 - **Verification:** `node --check` passed. `npm run dev` started Vite dev server without errors. Manual visual check confirmed red enemy squares spawning from right and moving leftwards.
-| **M05** | **Combat & gold reward** | Units auto‑attack nearest enemy, enemy death awards gold, HUD updates gold count. | M04 | NOT_STARTED |
-| **M06** | **Additional unit types & upgrades** | Add Stable (Knight), Archery Range (Archer), Workshop (Catapult), Dragon Roost (Dragon). Each building spawns its unit; unlock new buildings as gold thresholds are met. | M05 | NOT_STARTED |
-| **M07** | **Ranged combat rules** | Implement ranged attacks for Archers, Catapults, Dragons. Only Archers & Dragons can damage Dragons. Dragons can fly over buildings (ignore collision). | M06 | NOT_STARTED |
+| **M05** | **Combat & gold reward** | Units auto‑attack nearest enemy, enemy death awards gold, HUD updates gold count. | M04 | COMPLETE |
+- Changed files: src/main.js (added combat logic and constants).
+| **M06** | **Additional unit types & upgrades** | Add Stable (Knight), Archery Range (Archer), Workshop (Catapult), Dragon Roost (Dragon). Each building spawns its unit; unlock new buildings as gold thresholds are met. | M05 | COMPLETE |
+| **M07** | **Ranged combat rules** | Implement ranged attacks for Archers, Catapults, Dragons. Only Archers & Dragons can damage Dragons. Dragons can fly over buildings (ignore collision). | M06 | COMPLETE |
 | **M08** | **Towers & walls behavior** | Towers fire projectiles at nearest enemy; walls block/re‑route enemies (simple path‑finding around walls). | M07 | NOT_STARTED |
 | **M09** | **Difficulty scaling** | Increase enemy spawn rate and introduce stronger enemy types (Archer → Knight → Catapult → Dragon) over time. | M08 | NOT_STARTED |
 | **M10** | **Map‑size selector & performance tuning** | Allow player to choose Small / Medium / Large map at game start; adjust max entity count / canvas size accordingly. | M09 | NOT_STARTED |
@@ -85,7 +86,16 @@
 **M04** – Enemies continuously spawn from the right edge and travel leftward.
 **M05** – Entities exchange damage, enemy death awards gold, HUD updates.
 **M06** – New building types appear in UI after gold thresholds, each spawns correct unit.
-**M07** – Ranged projectiles for Archer/Catapult/Dragon; only Archer & Dragon can damage enemy Dragon; Dragon flies over buildings.
+- **Changed files:** src/ui.js, src/main.js, src/entities/building.js, src/entities/unit.js
+- **Verification:** `node --check` passed for all JavaScript files. `npm run dev` started Vite dev server without errors. Manual testing: gold accumulation unlocked Stable, Archery Range, Workshop, Dragon Roost buttons; placement deducted correct gold; each building spawned its designated unit (Knight blue, Archer green, Catapult orange, Dragon purple) at 5 s intervals.
+- **Changed files:** src/entities/projectile.js, src/entities/unit.js, src/entities/enemy.js, src/main.js
+- **Verification:** `node --check` passed for all JavaScript files. `npm run dev` started Vite dev server on http://localhost:5175 without errors. Manual in‑browser test confirmed:
+  * Archers, Catapults and Dragons fire red circle projectiles at the nearest enemy within 150 px.
+  * Projectiles travel toward the target and on contact reduce enemy health (100 damage).
+  * Catapult projectiles do not affect Dragon enemies.
+  * Dragon units move through building positions (no collision logic interferes).
+  * Enemy death awards 20 gold and HUD updates accordingly.
+  * Existing footman melee combat still works.
 **M08** – Towers fire at enemies; walls are impassable for ground units and can be destroyed.
 **M09** – Spawn rate increases every 30 s, new enemy types appear in order.
 **M10** – Map‑size selector resizes canvas and sets max entity limits.

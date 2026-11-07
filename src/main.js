@@ -3,11 +3,16 @@ import { initUI } from './ui.js';
 import { Building } from './entities/building.js';
 import { Unit } from './entities/unit.js';
 import { Enemy } from './entities/enemy.js';
+import { Projectile } from './entities/projectile.js';
 
 // Game configuration
 const TILE_SIZE = 20; // pixels per tile
 const GRID_COLS = 32;
 const GRID_ROWS = 32;
+
+// Combat configuration
+const COMBAT_RADIUS = 10; // pixels
+const ENEMY_GOLD_REWARD = 20; // gold per kill
 
 // Global game state attached to window for UI access
 window.gameState = {
@@ -16,6 +21,7 @@ window.gameState = {
   buildings: [],
   units: [],
   enemies: [],
+  projectiles: [],
   tileSize: TILE_SIZE,
   // timestamp of last frame for delta calculation
   lastFrameTime: null,
@@ -26,6 +32,10 @@ window.gameState = {
 function updateGoldUI() {
   const goldDiv = document.getElementById('goldCounter');
   if (goldDiv) goldDiv.textContent = `Gold: ${window.gameState.gold}`;
+  // Unlock buildings based on new gold amount
+  if (typeof window.unlockBuildings === 'function') {
+    window.unlockBuildings();
+  }
 }
 
 // Wait for DOM content loaded
@@ -125,12 +135,118 @@ window.addEventListener('DOMContentLoaded', () => {
       state.units.forEach(u => u.update(delta));
     }
 
+    // Ranged unit shooting logic
+    if (delta > 0) {
+      const now = performance.now();
+      state.units.forEach(unit => {
+        if (unit.range && now - (unit.lastShot || 0) >= unit.shotCooldown) {
+          // Find nearest enemy within range
+          let nearest = null;
+          let nearestDistSq = Infinity;
+          state.enemies.forEach(enemy => {
+            const dx = enemy.x - unit.x;
+            const dy = enemy.y - unit.y;
+            const distSq = dx * dx + dy * dy;
+            if (distSq <= unit.range * unit.range && distSq < nearestDistSq) {
+              nearest = enemy;
+              nearestDistSq = distSq;
+            }
+          });
+          if (nearest) {
+            const proj = new Projectile(unit.type, unit.x + unit.size/2, unit.y + unit.size/2, nearest);
+            state.projectiles.push(proj);
+            unit.lastShot = now;
+          }
+        }
+      });
+    }
+
     // Draw units
     state.units.forEach(u => u.draw(ctx));
     // Update enemies
     if (delta > 0) {
       state.enemies.forEach(e => e.update(delta));
     }
+    // Update projectiles
+    if (delta > 0) {
+      state.projectiles.forEach(p => p.update(delta));
+    }
+    // Projectile‑enemy collision handling
+    const remainingProjectiles = [];
+    const remainingEnemiesAfterProj = [];
+    state.enemies.forEach(enemy => {
+      let enemyDead = false;
+      // Check each projectile against this enemy
+      state.projectiles.forEach(proj => {
+        if (!proj.isAlive) return;
+        const dx = proj.x - enemy.x;
+        const dy = proj.y - enemy.y;
+        const distSq = dx * dx + dy * dy;
+        // Simple hit radius (projectile radius + half enemy size)
+        const hitRadius = proj.radius + enemy.size / 2;
+        if (distSq <= hitRadius * hitRadius) {
+          // Apply damage rules
+          if (proj.type === 'Catapult' && enemy.type === 'Dragon') {
+            // No damage
+          } else {
+            enemy.health -= 100; // one‑shot kill
+          }
+          proj.isAlive = false;
+        }
+      });
+      if (enemy.health <= 0) {
+        enemyDead = true;
+        window.gameState.gold += ENEMY_GOLD_REWARD;
+        updateGoldUI();
+      }
+      if (!enemyDead) remainingEnemiesAfterProj.push(enemy);
+    });
+    // Keep alive projectiles only
+    state.projectiles.forEach(p => {
+      if (p.isAlive) remainingProjectiles.push(p);
+    });
+    state.projectiles = remainingProjectiles;
+    state.enemies = remainingEnemiesAfterProj;
+    // Combat detection: melee units attack nearest enemy within radius
+    const combatRadiusSq = COMBAT_RADIUS * COMBAT_RADIUS;
+    const remainingEnemies = [];
+    state.enemies.forEach(enemy => {
+      let dead = false;
+      for (const unit of state.units) {
+        if (unit.range) continue; // skip ranged units (handled by projectiles)
+        const dx = unit.x - enemy.x;
+        const dy = unit.y - enemy.y;
+        if (dx * dx + dy * dy <= combatRadiusSq) {
+          dead = true;
+          // Award gold for kill
+          window.gameState.gold += ENEMY_GOLD_REWARD;
+          updateGoldUI();
+          break;
+        }
+      }
+      if (!dead) remainingEnemies.push(enemy);
+    });
+    state.enemies = remainingEnemies;
+    const combatRadiusSq = COMBAT_RADIUS * COMBAT_RADIUS;
+    const remainingEnemies = [];
+    state.enemies.forEach(enemy => {
+      let dead = false;
+      for (const unit of state.units) {
+        const dx = unit.x - enemy.x;
+        const dy = unit.y - enemy.y;
+        if (dx * dx + dy * dy <= combatRadiusSq) {
+          dead = true;
+          // Award gold for kill
+          window.gameState.gold += ENEMY_GOLD_REWARD;
+          updateGoldUI();
+          break;
+        }
+      }
+      if (!dead) remainingEnemies.push(enemy);
+    });
+    state.enemies = remainingEnemies;
+    // Draw projectiles
+    state.projectiles.forEach(p => p.draw(ctx));
     // Draw enemies
     state.enemies.forEach(e => e.draw(ctx));
 

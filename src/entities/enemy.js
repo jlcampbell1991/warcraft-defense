@@ -7,6 +7,8 @@ export class Enemy {
     this.size = size;
     // Speed in pixels per millisecond (move leftwards)
     this.speed = 0.05; // 0.05 px/ms => 50 px/s
+    // Health for combat
+    this.health = 100;
   }
 
   update(delta) {
@@ -20,5 +22,15 @@ export class Enemy {
     ctx.fillRect(this.x, this.y, this.size, this.size);
     ctx.strokeStyle = '#000';
     ctx.strokeRect(this.x, this.y, this.size, this.size);
+    // Optional health bar above enemy
+    if (this.health < 100) {
+      const barWidth = this.size;
+      const healthRatio = Math.max(this.health, 0) / 100;
+      ctx.fillStyle = 'black';
+      ctx.fillRect(this.x, this.y - 5, barWidth, 4);
+      ctx.fillStyle = 'lime';
+      ctx.fillRect(this.x, this.y - 5, barWidth * healthRatio, 4);
+    }
   }
 }
+
