@@ -26,6 +26,8 @@ Do not redraw the footman, substitute another asset, or invent animation frames.
 
 # Phase 1: Research Warcraft II Prior Art
 
+**Status:** ✅ Completed – see [Phase 1 research report](docs/phase1-footman-research.md)
+
 Before implementing anything, study existing open-source Warcraft II implementations and documentation.
 
 ## Wargus
