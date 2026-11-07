@@ -86,7 +86,7 @@
 | **M20** | **Add speed stat to units and enemies** | Introduce speed values for each unit type (Footman 10, Archer 10, Knight 13, Catapult 5, Dragon 16) and adjust movement logic accordingly. Update tests to verify correct speed assignment and proportional movement. | M19 | COMPLETE |
 | **M21** | **Building production timers and intervals** | Update building spawn intervals (Barracks 6 s, Archery Range 7 s, Stable 9 s, Workshop 25 s, Dragon Roost 25 s) and display a timer UI on each building showing time until next unit. | M20 | COMPLETE |
 | **M22** | **Tower damage update** | Towers should deal 12 damage per projectile hit. | M21 | COMPLETE |
-| **M23** | **Building HP and cost update** | Add HP values for each building type and update gold costs; set starting gold to 3000. | M22 | IN_PROGRESS |
+| **M23** | **Building HP and cost update** | Add HP values for each building type and update gold costs; set starting gold to 3000. | M22 | COMPLETE |
 - **Changed files:** test/tower-damage.test.js, package.json, plans/warcraft-defense.md
 - **Verification:** `npm test` passed (all existing tests plus new tower‑damage.test.js). Manual playtest confirms towers fire projectiles dealing 12 damage.
 
