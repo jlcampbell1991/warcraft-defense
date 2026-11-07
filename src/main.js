@@ -4,7 +4,7 @@ import { Building } from './entities/building.js';
 import { Unit } from './entities/unit.js';
 import { Enemy } from './entities/enemy.js';
 import { Projectile } from './entities/projectile.js';
-import { findNearest } from './utils/movement.js';
+import { findNearest, isOccupied } from './utils/movement.js';
 import { getRandomSpawnPosition } from './spawn.js';
 
 // Game configuration
@@ -15,6 +15,7 @@ const GRID_ROWS = 32;
 // Combat configuration
 const COMBAT_RADIUS = 10; // pixels
 const ENEMY_GOLD_REWARD = 20; // gold per kill
+// Enemy melee damage is now defined per enemy type
 
 // Performance tuning
 const MAX_ENTITIES = 200; // maximum total units and enemies
@@ -104,6 +105,12 @@ function initializeGame() {
     const clickY = e.clientY - rect.top;
     const gridX = Math.floor(clickX / state.tileSize) * state.tileSize;
     const gridY = Math.floor(clickY / state.tileSize) * state.tileSize;
+    // Occupancy check: ensure no building or unit occupies this tile
+    const occupied = isOccupied(gridX, gridY, state.tileSize, state.buildings.concat(state.units));
+    if (occupied) {
+      console.log('Cannot place building on occupied tile');
+      return;
+    }
     const building = new Building(type, gridX, gridY, state.tileSize);
     state.buildings.push(building);
     state.gold -= cost;
@@ -179,11 +186,21 @@ function initializeGame() {
           const dx = target.x - u.x;
           const dy = target.y - u.y;
           const dist = Math.hypot(dx, dy);
-          if (dist > 0) {
-            const nx = (dx / dist) * u.speed * delta;
-            const ny = (dy / dist) * u.speed * delta;
-            u.x += nx;
-            u.y += ny;
+          // If within combat radius, unit should stand ground and attack (handled elsewhere)
+          if (dist > COMBAT_RADIUS) {
+            if (dist > 0) {
+              const nx = (dx / dist) * u.speed * delta;
+              const ny = (dy / dist) * u.speed * delta;
+              // Compute potential new position for unit movement
+              const newX = u.x + nx;
+              const newY = u.y + ny;
+              // Prevent moving into a tile occupied by another unit (excluding self)
+              const occupied = isOccupied(newX, newY, u.size, state.units, u);
+              if (!occupied) {
+                u.x = newX;
+                u.y = newY;
+              }
+            }
           }
         }
       });
@@ -263,7 +280,7 @@ function initializeGame() {
             const ny = (dy / dist) * e.speed * delta;
             const newX = e.x + nx;
             const newY = e.y + ny;
-            if (!isBlocked(newX, newY, e.size)) {
+            if (!isBlocked(newX, newY, e.size) && !isOccupied(newX, newY, e.size, state.units.concat(state.enemies), e)) {
               e.x = newX;
               e.y = newY;
             } else {
@@ -314,25 +331,53 @@ function initializeGame() {
     });
     state.projectiles = remainingProjectiles;
     state.enemies = remainingEnemiesAfterProj;
-    // Combat detection melee
     const combatRadiusSq = COMBAT_RADIUS * COMBAT_RADIUS;
-    const remainingEnemies = [];
+    // Enemy melee attack on player units and buildings (attack first)
     state.enemies.forEach(enemy => {
-      let dead = false;
-      for (const unit of state.units) {
-        if (unit.range) continue;
-        const dx = unit.x - enemy.x;
-        const dy = unit.y - enemy.y;
+      const potentialTargets = state.units.concat(state.buildings.filter(b => b.type !== 'Wall'));
+      const target = findNearest(enemy, potentialTargets);
+      if (target) {
+        const dx = target.x - enemy.x;
+        const dy = target.y - enemy.y;
         if (dx * dx + dy * dy <= combatRadiusSq) {
-          dead = true;
-          window.gameState.gold += ENEMY_GOLD_REWARD;
-          updateGoldUI();
-          break;
+          if (typeof target.health === 'number') {
+            if (now - (enemy.lastAttack || 0) >= enemy.attackCooldown) {
+          target.health -= enemy.damage;
+          enemy.lastAttack = now;
+        }
+          }
         }
       }
-      if (!dead) remainingEnemies.push(enemy);
     });
-    state.enemies = remainingEnemies;
+    // Player melee combat (damage and cooldown)
+    state.units.forEach(unit => {
+      if (unit.range) return; // skip ranged units
+      const target = findNearest(unit, state.enemies);
+      if (target) {
+        const dx = target.x - unit.x;
+        const dy = target.y - unit.y;
+        if (dx * dx + dy * dy <= combatRadiusSq) {
+          if (now - (unit.lastAttack || 0) >= unit.attackCooldown) {
+            target.health -= unit.damage || 0;
+            unit.lastAttack = now;
+          }
+        }
+      }
+    });
+    // Remove dead enemies and award gold
+    const remainingEnemiesAfterCombat = [];
+    state.enemies.forEach(enemy => {
+      if (enemy.health > 0) {
+        remainingEnemiesAfterCombat.push(enemy);
+      } else {
+        window.gameState.gold += ENEMY_GOLD_REWARD;
+        updateGoldUI();
+      }
+    });
+    state.enemies = remainingEnemiesAfterCombat;
+        // Remove dead units and buildings
+    state.units = state.units.filter(u => u.health > 0);
+    state.buildings = state.buildings.filter(b => b.health > 0);
     // Draw projectiles and enemies
     state.projectiles.forEach(p => p.draw(ctx));
     state.enemies.forEach(e => e.draw(ctx));

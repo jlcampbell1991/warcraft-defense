@@ -72,7 +72,14 @@
 | **M11** | **Polish & cross‑browser testing** | Verify no console errors in Brave, add basic start‑screen, ensure UI is responsive, final cleanup. | M10 | COMPLETE |
 | **M12** | **Dynamic movement for units** | Update movement logic so that enemy units move toward the nearest player unit or building to attack, and player units move toward the nearest enemy unit to attack, instead of moving in a straight line. | M11 | COMPLETE |
 | **M13** | **Four‑side enemy spawning** | Modify enemy spawning logic to spawn from a random side (top, bottom, left, right) with random edge coordinate. | M12 | COMPLETE |
+| **M14** | **Health & damage system** | Add health properties and health bars to all units and buildings; enable enemy units to damage player units and buildings when in combat range; destroy entities when health reaches zero. | M13 | COMPLETE |
+| **M15** | **Enemy footman stats** | Enemy footman units have 60 HP, deal 6 damage per attack, and attack once per second. | M14 | COMPLETE |
+| **M16** | **Collision handling for placement** | Ensure buildings cannot be placed on occupied tiles; units cannot occupy same tile; implement collision detection and prevent overlapping. | M15 | COMPLETE |
+- **Changed files:** src/main.js, src/utils/movement.js, test/occupancy.test.js, plans/warcraft-defense.md
+- **Verification:** `npm test` passed (including new health tests). Manual playtest confirmed health bars displayed below units/buildings and enemies reduce health when in range, destroying entities at zero health.
 
+| **M17** | **Units should not flee** | Units must stand their ground while attacking and not move away from enemies during combat. | M16 | COMPLETE |
+- **Changed files:** src/main.js, test/unitMovement.test.js, package.json, plans/warcraft-defense.md
 | ID | Title | Objective | Prerequisites | Status |
 |----|-------|-----------|----------------|--------|
 | **M01** | **Project scaffold & UI skeleton** | Create repo clone, set up basic HTML page, canvas, HUD (gold counter, map‑size selector, build menu UI). | None | COMPLETE |
@@ -101,6 +108,16 @@
 | **M11** | **Polish & cross‑browser testing** | Verify no console errors in Brave, add basic start‑screen, ensure UI is responsive, final cleanup. | M10 | COMPLETE |
 
 ### Acceptance criteria per milestone (summary)
+
+- Enemy footman units have **60 HP**, deal **6 damage** per attack, and attack **once per second**.
+
+**Additional requirement:**
+- Enemy units must deal high damage to player units and buildings when in combat range, they attack before player units, **and they display health bars just like player units and buildings**.
+- Buildings and units cannot occupy the same grid cell; placement and movement must respect occupied tiles.
+- Footman units have **60 HP**, deal **6 damage** per attack, and attack **once per second**.
+- All units (enemy and player) and buildings should display a health bar below the sprite.
+- Units and buildings must have health values and be destroyed when health reaches zero.
+
 **M01** – repo cloned, `index.html` loads `src/main.js`, canvas created, HUD elements visible, no console errors.
 **M02** – 32×32 grid, click‑to‑place buildings snapping to grid, gold deducted, placement blocked when insufficient gold.
 **M03** – Buildings spawn their unit after a configurable interval; unit moves toward nearest enemy.
@@ -129,8 +146,7 @@
 **M11** – Game runs in Brave with no errors, start screen present, UI responsive.
 - **Changed files:** index.html, src/ui.js, src/main.js, plans/warcraft-defense.md
 - **Verification:** `node --check` passed for all JavaScript files. `npm run dev` started Vite server without errors. Manual testing in Brave confirmed start screen appears, button starts game, UI remains responsive across canvas sizes, and no console errors.
-| **M13** | **Four‑side enemy spawning** | Modify enemy spawning logic to spawn from a random side (top, bottom, left, right) with random edge coordinate. | M12 | COMPLETE |
-- **Changed files:** src/main.js, src/spawn.js, test/spawnEdge.test.js, plans/warcraft-defense.md
+
 - **Verification:** `npm test` passed (all existing tests plus new spawnEdge.test.js).
 
 ## Implementation workflow for each milestone
