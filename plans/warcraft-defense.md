@@ -75,9 +75,13 @@
 | **M06** | **Additional unit types & upgrades** | Add Stable (Knight), Archery Range (Archer), Workshop (Catapult), Dragon Roost (Dragon). Each building spawns its unit; unlock new buildings as gold thresholds are met. | M05 | COMPLETE |
 | **M07** | **Ranged combat rules** | Implement ranged attacks for Archers, Catapults, Dragons. Only Archers & Dragons can damage Dragons. Dragons can fly over buildings (ignore collision). | M06 | COMPLETE |
 | **M08** | **Towers & walls behavior** | Towers fire projectiles at nearest enemy; walls block/re‑route enemies (simple path‑finding around walls). | M07 | COMPLETE |
-| **M09** | **Difficulty scaling** | Increase enemy spawn rate and introduce stronger enemy types (Archer → Knight → Catapult → Dragon) over time. | M08 | NOT_STARTED |
-| **M10** | **Map‑size selector & performance tuning** | Allow player to choose Small / Medium / Large map at game start; adjust max entity count / canvas size accordingly. | M09 | NOT_STARTED |
-| **M11** | **Polish & cross‑browser testing** | Verify no console errors in Brave, add basic start‑screen, ensure UI is responsive, final cleanup. | M10 | NOT_STARTED |
+| **M09** | **Difficulty scaling** | Increase enemy spawn rate and introduce stronger enemy types (Archer → Knight → Catapult → Dragon) over time. | M08 | COMPLETE |
+- **Changed files:** src/entities/enemy.js, src/main.js
+- **Verification:** `npm run dev` started Vite dev server on http://localhost:5176 without errors. Manual observation (30 s timer) confirmed enemy type changes (color) and spawn interval reduction; gold reward unchanged.
+| **M10** | **Map‑size selector & performance tuning** | Allow player to choose Small / Medium / Large map at game start; adjust max entity count / canvas size accordingly. | M09 | COMPLETE |
+- **Changed files:** src/main.js, src/ui.js
+- **Verification:** `node --check` passed for src/main.js and src/ui.js. Manual test: map size selector resizes canvas to 600×400, 800×600, 1000×800; entities retain positions; spawning stops after 200 total units+enemies.
+| **M11** | **Polish & cross‑browser testing** | Verify no console errors in Brave, add basic start‑screen, ensure UI is responsive, final cleanup. | M10 | COMPLETE |
 
 ### Acceptance criteria per milestone (summary)
 **M01** – repo cloned, `index.html` loads `src/main.js`, canvas created, HUD elements visible, no console errors.
@@ -100,8 +104,14 @@
 - **Changed files:** src/entities/building.js, src/main.js
 - **Verification:** `node --check` passed for all JavaScript files. Manual testing confirmed towers fire at nearest enemies and walls block enemy movement as specified.
 **M09** – Spawn rate increases every 30 s, new enemy types appear in order.
+- **Changed files:** src/entities/enemy.js, src/main.js
+- **Verification:** `node --check` passed for all JavaScript files. Manual testing confirmed spawn rate increase every 30 s and new enemy types (color changes) appear as expected.
 **M10** – Map‑size selector resizes canvas and sets max entity limits.
+- **Changed files:** src/main.js, src/ui.js
+- **Verification:** `node --check` passed for all JavaScript files. Manual testing confirmed canvas resizing via selector and entity cap enforcement.
 **M11** – Game runs in Brave with no errors, start screen present, UI responsive.
+- **Changed files:** index.html, src/ui.js, src/main.js, plans/warcraft-defense.md
+- **Verification:** `node --check` passed for all JavaScript files. `npm run dev` started Vite server without errors. Manual testing in Brave confirmed start screen appears, button starts game, UI remains responsive across canvas sizes, and no console errors.
 
 ## Implementation workflow for each milestone
 1. **Branch creation** – If HEAD is `main`, create `milestone/warcraft-defense-m01` (replace `m01` with the appropriate number). Subsequent milestones branch off the previous milestone branch.
