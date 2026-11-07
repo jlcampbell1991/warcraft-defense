@@ -17,7 +17,7 @@
 1. Player selects a map size (small / medium / large).  
 2. Player can place **buildings** (Barracks, Stable, Archery Range, Workshop, Dragon Roost, Tower, Wall).  
 3. Buildings generate **units** (Footman → Knight → Archer → Catapult → Dragon).  
-4. Enemy units stream continuously from the right side of the map, growing stronger over time.  
+4. Enemy units stream continuously from any side of the map (top, bottom, left, or right), growing stronger over time, and move toward the nearest player unit or building to attack.  
 5. Units automatically attack the nearest enemy.  
 6. Killing an enemy grants **gold**; gold is spent to build more structures.  
 7. Towers fire projectiles; walls block/re‑route enemies but can be destroyed.  
@@ -29,7 +29,7 @@
 | **Core map & UI** | Player can select map size, see a HUD (gold, wave timer, build menu). |
 | **Building placement** | Buildings snap to a grid, can be placed if enough gold, show placeholder graphics. |
 | **Unit production** | Each building spawns its designated unit at a configurable interval. |
-| **Enemy stream** | Enemies continuously spawn, follow a simple path, and become stronger over time. |
+| **Enemy stream** | Enemies continuously spawn, move toward the nearest player unit or building to attack, and become stronger over time. |
 | **Combat & gold** | Units automatically attack nearest enemy; each kill awards gold; gold displayed in HUD. |
 | **Towers & walls** | Towers fire at enemies; walls block/re‑route enemies but can be destroyed. |
 | **Ranged unit rules** | Only Archers and Dragons can damage Dragons; Dragons can fly over buildings. |
@@ -56,6 +56,23 @@
 ```
 
 ## Milestone list
+
+| ID | Title | Objective | Prerequisites | Status |
+|----|-------|-----------|----------------|--------|
+| **M01** | **Project scaffold & UI skeleton** | Create repo clone, set up basic HTML page, canvas, HUD (gold counter, map‑size selector, build menu UI). | None | COMPLETE |
+| **M02** | **Grid & building placement** | Implement a tile‑grid, allow player to place placeholder buildings (Barracks, Tower, Wall) with gold cost validation. | M01 | COMPLETE |
+| **M03** | **Unit production system** | Add logic for buildings to spawn their unit type (Footman from Barracks) at a fixed interval. | M02 | COMPLETE |
+| **M04** | **Enemy stream (basic)** | Continuous spawning of enemy Footmen from any side of the map (top, bottom, left, or right), moving toward the nearest player unit or building to attack. | M03 | COMPLETE |
+| **M05** | **Combat & gold reward** | Units auto‑attack nearest enemy, enemy death awards gold, HUD updates gold count. | M04 | COMPLETE |
+| **M06** | **Additional unit types & upgrades** | Add Stable (Knight), Archery Range (Archer), Workshop (Catapult), Dragon Roost (Dragon). Each building spawns its unit; unlock new buildings as gold thresholds are met. | M05 | COMPLETE |
+| **M07** | **Ranged combat rules** | Implement ranged attacks for Archers, Catapults, Dragons. Only Archers & Dragons can damage Dragons. Dragons can fly over buildings (ignore collision). | M06 | COMPLETE |
+| **M08** | **Towers & walls behavior** | Towers fire projectiles at nearest enemy; walls block/re‑route enemies (simple path‑finding around walls). | M07 | COMPLETE |
+| **M09** | **Difficulty scaling** | Increase enemy spawn rate and introduce stronger enemy types (Archer → Knight → Catapult → Dragon) over time. | M08 | COMPLETE |
+| **M10** | **Map‑size selector & performance tuning** | Allow player to choose Small / Medium / Large map at game start; adjust max entity count / canvas size accordingly. | M09 | COMPLETE |
+| **M11** | **Polish & cross‑browser testing** | Verify no console errors in Brave, add basic start‑screen, ensure UI is responsive, final cleanup. | M10 | COMPLETE |
+| **M12** | **Dynamic movement for units** | Update movement logic so that enemy units move toward the nearest player unit or building to attack, and player units move toward the nearest enemy unit to attack, instead of moving in a straight line. | M11 | COMPLETE |
+| **M13** | **Four‑side enemy spawning** | Modify enemy spawning logic to spawn from a random side (top, bottom, left, right) with random edge coordinate. | M12 | COMPLETE |
+
 | ID | Title | Objective | Prerequisites | Status |
 |----|-------|-----------|----------------|--------|
 | **M01** | **Project scaffold & UI skeleton** | Create repo clone, set up basic HTML page, canvas, HUD (gold counter, map‑size selector, build menu UI). | None | COMPLETE |
@@ -67,7 +84,7 @@
 | **M03** | **Unit production system** | Add logic for buildings to spawn their unit type (Footman from Barracks) at a fixed interval. | M02 | COMPLETE |
 - Changed files: src/main.js, src/entities/building.js, src/entities/unit.js
 - Verification: `node --check` passed for all JS files. Vite dev server started without errors. Manual test: placed Barracks via UI, footman units appeared every 5 seconds moving rightwards.
-| **M04** | **Enemy stream (basic)** | Continuous spawning of enemy Footmen from the right side, moving along a straight path toward player base. | M03 | COMPLETE |
+| **M04** | **Enemy stream (basic)** | Continuous spawning of enemy Footmen from any side of the map (top, bottom, left, or right), moving toward the nearest player unit or building to attack. | M03 | COMPLETE |
 - **Changed files:** src/entities/enemy.js, src/main.js
 - **Verification:** `node --check` passed. `npm run dev` started Vite dev server without errors. Manual visual check confirmed red enemy squares spawning from right and moving leftwards.
 | **M05** | **Combat & gold reward** | Units auto‑attack nearest enemy, enemy death awards gold, HUD updates gold count. | M04 | COMPLETE |
@@ -87,7 +104,7 @@
 **M01** – repo cloned, `index.html` loads `src/main.js`, canvas created, HUD elements visible, no console errors.
 **M02** – 32×32 grid, click‑to‑place buildings snapping to grid, gold deducted, placement blocked when insufficient gold.
 **M03** – Buildings spawn their unit after a configurable interval; unit moves toward nearest enemy.
-**M04** – Enemies continuously spawn from the right edge and travel leftward.
+**M04** – Enemies continuously spawn from any side of the map (top, bottom, left, or right) and move toward the nearest player unit or building to attack.
 **M05** – Entities exchange damage, enemy death awards gold, HUD updates.
 **M06** – New building types appear in UI after gold thresholds, each spawns correct unit.
 - **Changed files:** src/ui.js, src/main.js, src/entities/building.js, src/entities/unit.js
@@ -112,6 +129,9 @@
 **M11** – Game runs in Brave with no errors, start screen present, UI responsive.
 - **Changed files:** index.html, src/ui.js, src/main.js, plans/warcraft-defense.md
 - **Verification:** `node --check` passed for all JavaScript files. `npm run dev` started Vite server without errors. Manual testing in Brave confirmed start screen appears, button starts game, UI remains responsive across canvas sizes, and no console errors.
+| **M13** | **Four‑side enemy spawning** | Modify enemy spawning logic to spawn from a random side (top, bottom, left, right) with random edge coordinate. | M12 | COMPLETE |
+- **Changed files:** src/main.js, src/spawn.js, test/spawnEdge.test.js, plans/warcraft-defense.md
+- **Verification:** `npm test` passed (all existing tests plus new spawnEdge.test.js).
 
 ## Implementation workflow for each milestone
 1. **Branch creation** – If HEAD is `main`, create `milestone/warcraft-defense-m01` (replace `m01` with the appropriate number). Subsequent milestones branch off the previous milestone branch.

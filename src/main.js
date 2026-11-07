@@ -4,6 +4,8 @@ import { Building } from './entities/building.js';
 import { Unit } from './entities/unit.js';
 import { Enemy } from './entities/enemy.js';
 import { Projectile } from './entities/projectile.js';
+import { findNearest } from './utils/movement.js';
+import { getRandomSpawnPosition } from './spawn.js';
 
 // Game configuration
 let TILE_SIZE = 20; // pixels per tile (adjustable)
@@ -162,16 +164,29 @@ function initializeGame() {
     // Enemy spawning
     if (now - state.lastEnemySpawn >= state.enemySpawnInterval) {
       if (state.units.length + state.enemies.length < MAX_ENTITIES) {
-        const y = Math.floor(Math.random() * GRID_ROWS) * state.tileSize;
+        const { x, y } = getRandomSpawnPosition(state, canvas);
         const currentType = ENEMY_TYPES[difficultyLevel];
-        const enemy = new Enemy(currentType, canvas.width, y, state.tileSize);
+        const enemy = new Enemy(currentType, x, y, state.tileSize);
         state.enemies.push(enemy);
         state.lastEnemySpawn = now;
       }
     }
     // Update units
     if (delta > 0) {
-      state.units.forEach(u => u.update(delta));
+      state.units.forEach(u => {
+        const target = findNearest(u, state.enemies);
+        if (target) {
+          const dx = target.x - u.x;
+          const dy = target.y - u.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist > 0) {
+            const nx = (dx / dist) * u.speed * delta;
+            const ny = (dy / dist) * u.speed * delta;
+            u.x += nx;
+            u.y += ny;
+          }
+        }
+      });
     }
     // Ranged unit shooting
     if (delta > 0) {
@@ -235,19 +250,29 @@ function initializeGame() {
         }
         return false;
       };
+      // Determine potential targets for enemies: player units and non‑wall buildings
+      const enemyTargets = state.units.concat(state.buildings.filter(b => b.type !== 'Wall'));
       state.enemies.forEach(e => {
-        const newX = e.x - e.speed * delta;
-        const newY = e.y;
-        if (!isBlocked(newX, newY, e.size)) {
-          e.x = newX;
-        } else {
-          const upY = e.y - TILE_SIZE;
-          if (!isBlocked(e.x, upY, e.size)) {
-            e.y = upY;
-          } else {
-            const downY = e.y + TILE_SIZE;
-            if (!isBlocked(e.x, downY, e.size)) {
-              e.y = downY;
+        const target = findNearest(e, enemyTargets);
+        if (target) {
+          const dx = target.x - e.x;
+          const dy = target.y - e.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist > 0) {
+            const nx = (dx / dist) * e.speed * delta;
+            const ny = (dy / dist) * e.speed * delta;
+            const newX = e.x + nx;
+            const newY = e.y + ny;
+            if (!isBlocked(newX, newY, e.size)) {
+              e.x = newX;
+              e.y = newY;
+            } else {
+              // Simple fallback: try moving only in x direction
+              if (!isBlocked(e.x + nx, e.y, e.size)) {
+                e.x += nx;
+              } else if (!isBlocked(e.x, e.y + ny, e.size)) {
+                e.y += ny;
+              }
             }
           }
         }
