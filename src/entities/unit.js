@@ -13,6 +13,44 @@ export class Unit {
     this.lastShot = 0; // timestamp of last shot
     // Flying flag for Dragons
     this.isFlying = false;
+    // Health and combat properties
+    let maxHealth = 100;
+    let damage = 0;
+    let attackCooldown = 0;
+    switch (type) {
+      case 'Footman':
+        maxHealth = 60;
+        damage = 6;
+        attackCooldown = 1000; // 1 second
+        break;
+      case 'Knight':
+        maxHealth = 90;
+        damage = 8;
+        attackCooldown = 800;
+        break;
+      case 'Archer':
+        maxHealth = 40;
+        damage = 3;
+        attackCooldown = 900;
+        break;
+      case 'Catapult':
+        maxHealth = 110;
+        damage = 15;
+        attackCooldown = 1200;
+        break;
+      case 'Dragon':
+        maxHealth = 100;
+        damage = 10;
+        attackCooldown = 500;
+        break;
+      default:
+        maxHealth = 100;
+    }
+    this.maxHealth = maxHealth;
+    this.health = maxHealth;
+    this.damage = damage;
+    this.attackCooldown = attackCooldown;
+    this.lastAttack = 0;
     // Initialize type‑specific defaults
     switch (type) {
       case 'Archer':
@@ -62,5 +100,16 @@ export class Unit {
     ctx.fillRect(this.x, this.y, this.size, this.size);
     ctx.strokeStyle = '#000';
     ctx.strokeRect(this.x, this.y, this.size, this.size);
+    // Health bar below unit
+    if (this.maxHealth > 0) {
+      const barWidth = this.size;
+      const healthRatio = Math.max(this.health, 0) / this.maxHealth;
+      const barX = this.x;
+      const barY = this.y + this.size + 2; // 2px below
+      ctx.fillStyle = 'black';
+      ctx.fillRect(barX, barY, barWidth, 4);
+      ctx.fillStyle = 'lime';
+      ctx.fillRect(barX, barY, barWidth * healthRatio, 4);
+    }
   }
 }

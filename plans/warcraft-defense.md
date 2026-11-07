@@ -79,7 +79,8 @@
 - **Verification:** `npm test` passed (including new health tests). Manual playtest confirmed health bars displayed below units/buildings and enemies reduce health when in range, destroying entities at zero health.
 
 | **M17** | **Units should not flee** | Units must stand their ground while attacking and not move away from enemies during combat. | M16 | COMPLETE |
-- **Changed files:** src/main.js, test/unitMovement.test.js, package.json, plans/warcraft-defense.md
+| **M18** | **Update unit stats** | Adjust health and damage values for Archers, Knights, Catapults, and Dragons (both player units and enemies) per spec: Archers 40 HP/3 dmg, Knights 90 HP/8 dmg, Catapults 110 HP/15 dmg, Dragons 100 HP/10 dmg. | M17 | COMPLETE |
+- **Changed files:** src/entities/unit.js, src/entities/enemy.js, plans/warcraft-defense.md
 | ID | Title | Objective | Prerequisites | Status |
 |----|-------|-----------|----------------|--------|
 | **M01** | **Project scaffold & UI skeleton** | Create repo clone, set up basic HTML page, canvas, HUD (gold counter, map‑size selector, build menu UI). | None | COMPLETE |
