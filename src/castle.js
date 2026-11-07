@@ -11,9 +11,11 @@ import { Building } from './entities/building.js';
  */
 export function placeCastle(state) {
   const tileSize = state.tileSize;
-  // Choose a starting offset (e.g., 2 tiles from the left and top edges)
-  const startCol = 2;
-  const startRow = 2;
+  // Place castle in the center of the grid (2x2 block)
+  const GRID_COLS = 32;
+  const GRID_ROWS = 32;
+  const startCol = Math.floor(GRID_COLS / 2) - 1;
+  const startRow = Math.floor(GRID_ROWS / 2) - 1;
   const positions = [
     { col: startCol, row: startRow },
     { col: startCol + 1, row: startRow },

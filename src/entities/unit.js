@@ -39,7 +39,7 @@ export class Unit {
         break;
       case 'Archer':
         maxHealth = 40;
-        damage = 3;
+        damage = 6;
         attackCooldown = 900;
         break;
       case 'Catapult':

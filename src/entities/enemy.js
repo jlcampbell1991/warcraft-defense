@@ -31,6 +31,24 @@ export class Enemy {
     this.attackCooldown = data.attackCooldown;
     this.lastAttack = 0;
     this.color = data.color;
+    // Range in tiles, similar to player units
+    switch (type) {
+      case 'Footman':
+      case 'Knight':
+        this.range = 1;
+        break;
+      case 'Archer':
+        this.range = 5;
+        break;
+      case 'Catapult':
+        this.range = 8;
+        break;
+      case 'Dragon':
+        this.range = 4;
+        break;
+      default:
+        this.range = 1;
+    }
   }
 
   update(delta) {

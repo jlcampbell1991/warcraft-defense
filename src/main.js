@@ -384,20 +384,20 @@ function initializeGame() {
     });
     state.projectiles = remainingProjectiles;
     state.enemies = remainingEnemiesAfterProj;
-    const combatRadiusSq = COMBAT_RADIUS * COMBAT_RADIUS;
-    // Enemy melee attack on player units and buildings (attack first)
+    // Enemy attack on player units and buildings using range
     state.enemies.forEach(enemy => {
       const potentialTargets = state.units.concat(state.buildings.filter(b => b.type !== 'Wall'));
       const target = findNearest(enemy, potentialTargets);
       if (target) {
         const dx = target.x - enemy.x;
         const dy = target.y - enemy.y;
-        if (dx * dx + dy * dy <= combatRadiusSq) {
+        const attackRangePx = enemy.range * TILE_SIZE;
+        if (dx * dx + dy * dy <= attackRangePx * attackRangePx) {
           if (typeof target.health === 'number') {
             if (now - (enemy.lastAttack || 0) >= enemy.attackCooldown) {
-          target.health -= enemy.damage;
-          enemy.lastAttack = now;
-        }
+              target.health -= enemy.damage;
+              enemy.lastAttack = now;
+            }
           }
         }
       }
