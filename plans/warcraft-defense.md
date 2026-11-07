@@ -58,10 +58,18 @@
 ## Milestone list
 | ID | Title | Objective | Prerequisites | Status |
 |----|-------|-----------|----------------|--------|
-| **M01** | **Project scaffold & UI skeleton** | Create repo clone, set up basic HTML page, canvas, HUD (gold counter, map‑size selector, build menu UI). | None | NOT_STARTED |
-| **M02** | **Grid & building placement** | Implement a tile‑grid, allow player to place placeholder buildings (Barracks, Tower, Wall) with gold cost validation. | M01 | NOT_STARTED |
-| **M03** | **Unit production system** | Add logic for buildings to spawn their unit type (Footman from Barracks) at a fixed interval. | M02 | NOT_STARTED |
-| **M04** | **Enemy stream (basic)** | Continuous spawning of enemy Footmen from the right side, moving along a straight path toward player base. | M03 | NOT_STARTED |
+| **M01** | **Project scaffold & UI skeleton** | Create repo clone, set up basic HTML page, canvas, HUD (gold counter, map‑size selector, build menu UI). | None | COMPLETE |
+- **Changed files:** index.html, src/main.js, src/ui.js, package.json, .git (init), .gitignore (none), node_modules (added), plan updated.
+- **Verification:** `node --check` passed for JS files, no console errors when loading page via Vite dev server (manual check).
+| **M02** | **Grid & building placement** | Implement a tile‑grid, allow player to place placeholder buildings (Barracks, Tower, Wall) with gold cost validation. | M01 | COMPLETE |
+- **Changed files:** index.html, src/main.js, src/ui.js, src/entities/building.js, plans/warcraft-defense.md
+- **Verification:** `npm run dev` started Vite dev server without errors; manual UI test confirmed 32×32 grid, building placement snapping to grid, gold deduction, and blocking when insufficient gold.
+| **M03** | **Unit production system** | Add logic for buildings to spawn their unit type (Footman from Barracks) at a fixed interval. | M02 | COMPLETE |
+- Changed files: src/main.js, src/entities/building.js, src/entities/unit.js
+- Verification: `node --check` passed for all JS files. Vite dev server started without errors. Manual test: placed Barracks via UI, footman units appeared every 5 seconds moving rightwards.
+| **M04** | **Enemy stream (basic)** | Continuous spawning of enemy Footmen from the right side, moving along a straight path toward player base. | M03 | COMPLETE |
+- **Changed files:** src/entities/enemy.js, src/main.js
+- **Verification:** `node --check` passed. `npm run dev` started Vite dev server without errors. Manual visual check confirmed red enemy squares spawning from right and moving leftwards.
 | **M05** | **Combat & gold reward** | Units auto‑attack nearest enemy, enemy death awards gold, HUD updates gold count. | M04 | NOT_STARTED |
 | **M06** | **Additional unit types & upgrades** | Add Stable (Knight), Archery Range (Archer), Workshop (Catapult), Dragon Roost (Dragon). Each building spawns its unit; unlock new buildings as gold thresholds are met. | M05 | NOT_STARTED |
 | **M07** | **Ranged combat rules** | Implement ranged attacks for Archers, Catapults, Dragons. Only Archers & Dragons can damage Dragons. Dragons can fly over buildings (ignore collision). | M06 | NOT_STARTED |
