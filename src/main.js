@@ -14,8 +14,17 @@ const GRID_ROWS = 32;
 
 // Combat configuration
 const COMBAT_RADIUS = 10; // pixels
-const ENEMY_GOLD_REWARD = 20; // gold per kill
+// Gold reward per enemy kill is based on unit cost
 // Enemy melee damage is now defined per enemy type
+
+// Unit gold cost constants
+const UNIT_GOLD_COST = {
+  Footman: 600,
+  Archer: 500,
+  Knight: 800,
+  Catapult: 900,
+  Dragon: 2500,
+};
 
 // Performance tuning
 const MAX_ENTITIES = 200; // maximum total units and enemies
@@ -33,6 +42,7 @@ window.gameState = {
   lastFrameTime: null,
   lastEnemySpawn: 0,
   enemySpawnInterval: 3000,
+  pendingProductions: [],
 };
 
 // Difficulty scaling variables
@@ -113,6 +123,11 @@ function initializeGame() {
     }
     const building = new Building(type, gridX, gridY, state.tileSize);
     state.buildings.push(building);
+    // Immediately create a free unit of this building's type (if it produces units)
+    if (building.unitType) {
+      const freeUnit = new Unit(building.unitType, building.x, building.y, building.size);
+      state.units.push(freeUnit);
+    }
     state.gold -= cost;
     updateGoldUI();
     state.selectedBuilding.type = null;
@@ -150,16 +165,37 @@ function initializeGame() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     drawGrid();
     state.buildings.forEach(b => b.draw(ctx));
-    // Production
+    // Production: queue units when production interval elapsed
     state.buildings.forEach(b => {
       if (typeof b.canSpawn === 'function' && b.canSpawn(now)) {
-        if (state.units.length + state.enemies.length < MAX_ENTITIES) {
-          const unit = new Unit(b.unitType, b.x, b.y, b.size);
-          state.units.push(unit);
-          b.lastSpawn = now;
-        }
+        // Add to pending productions queue; timer will resume after unit is actually spawned
+        state.pendingProductions.push({ building: b, readyTime: now });
+        b.pendingProduction = true;
+        // Do NOT update b.lastSpawn here; it will be set when the unit is successfully spawned
       }
     });
+    // Process pending productions in FIFO order
+    while (state.pendingProductions.length > 0) {
+      const entry = state.pendingProductions[0];
+      const cost = UNIT_GOLD_COST[entry.building.unitType] || 0;
+      if (window.gameState.gold >= cost) {
+        // Spawn unit
+        const unit = new Unit(entry.building.unitType, entry.building.x, entry.building.y, entry.building.size);
+        state.units.push(unit);
+        // Deduct gold
+        window.gameState.gold -= cost;
+        updateGoldUI();
+        // Reset building's spawn timer
+        entry.building.lastSpawn = now;
+        entry.building.pendingProduction = false;
+        // Remove from queue
+        state.pendingProductions.shift();
+      } else {
+        // Insufficient gold; notify player and pause processing further pending productions
+        console.log('Insufficient gold for', entry.building.unitType, 'production');
+        break;
+      }
+    }
     // Difficulty increase
     if (now - lastDifficultyIncrease >= 30000) {
       if (difficultyLevel < MAX_DIFFICULTY) {
@@ -210,13 +246,15 @@ function initializeGame() {
       const now = performance.now();
       state.units.forEach(unit => {
         if (unit.range && now - (unit.lastShot || 0) >= unit.shotCooldown) {
+          const rangePx = unit.range * TILE_SIZE;
+          const rangeSq = rangePx * rangePx;
           let nearest = null;
           let nearestDistSq = Infinity;
           state.enemies.forEach(enemy => {
             const dx = enemy.x - unit.x;
             const dy = enemy.y - unit.y;
             const distSq = dx * dx + dy * dy;
-            if (distSq <= unit.range * unit.range && distSq < nearestDistSq) {
+            if (distSq <= rangeSq && distSq < nearestDistSq) {
               nearest = enemy;
               nearestDistSq = distSq;
             }
@@ -325,7 +363,8 @@ function initializeGame() {
       });
       if (enemy.health <= 0) {
         enemyDead = true;
-        window.gameState.gold += ENEMY_GOLD_REWARD;
+        const reward = UNIT_GOLD_COST[enemy.type] || 0;
+        window.gameState.gold += reward;
         updateGoldUI();
       }
       if (!enemyDead) remainingEnemiesAfterProj.push(enemy);
@@ -353,14 +392,14 @@ function initializeGame() {
         }
       }
     });
-    // Player melee combat (damage and cooldown)
+    // Player combat (damage and cooldown) using unit range
     state.units.forEach(unit => {
-      if (unit.range) return; // skip ranged units
       const target = findNearest(unit, state.enemies);
       if (target) {
         const dx = target.x - unit.x;
         const dy = target.y - unit.y;
-        if (dx * dx + dy * dy <= combatRadiusSq) {
+        const attackRangePx = unit.range * TILE_SIZE;
+        if (dx * dx + dy * dy <= attackRangePx * attackRangePx) {
           if (now - (unit.lastAttack || 0) >= unit.attackCooldown) {
             target.health -= unit.damage || 0;
             unit.lastAttack = now;
@@ -373,10 +412,7 @@ function initializeGame() {
     state.enemies.forEach(enemy => {
       if (enemy.health > 0) {
         remainingEnemiesAfterCombat.push(enemy);
-      } else {
-        window.gameState.gold += ENEMY_GOLD_REWARD;
-        updateGoldUI();
-      }
+      } // gold already awarded earlier when enemy died
     });
     state.enemies = remainingEnemiesAfterCombat;
         // Remove dead units and buildings

@@ -16,8 +16,8 @@ export class Unit {
     };
     const stat = SPEED_STATS[type] || 10;
     this.speed = BASE_SPEED * (stat / 10); // computed speed
-    // Ranged unit properties (default for melee units)
-    this.range = null; // in pixels, null means melee
+    // Range stat (in tiles). Determines attack distance.
+    this.range = 1; // default melee range of 1 tile
     this.shotCooldown = 2000; // ms between shots for ranged units
     this.lastShot = 0; // timestamp of last shot
     // Flying flag for Dragons
@@ -62,19 +62,24 @@ export class Unit {
     this.lastAttack = 0;
     // Initialize type‑specific defaults
     switch (type) {
+      case 'Footman':
+        this.range = 1; // melee range 1 tile
+        break;
+      case 'Knight':
+        this.range = 1; // melee range 1 tile
+        break;
       case 'Archer':
-        this.range = 150;
+        this.range = 5; // ranged attack up to 5 tiles
         break;
       case 'Catapult':
-        this.range = 150;
+        this.range = 8; // ranged attack up to 8 tiles
         break;
       case 'Dragon':
-        this.range = 150;
+        this.range = 4; // ranged attack up to 4 tiles
         this.isFlying = true;
         break;
       default:
-        // melee units keep range null
-        break;
+        this.range = 1; // default fallback
     }
   }
 
