@@ -74,7 +74,7 @@
 - Changed files: src/main.js (added combat logic and constants).
 | **M06** | **Additional unit types & upgrades** | Add Stable (Knight), Archery Range (Archer), Workshop (Catapult), Dragon Roost (Dragon). Each building spawns its unit; unlock new buildings as gold thresholds are met. | M05 | COMPLETE |
 | **M07** | **Ranged combat rules** | Implement ranged attacks for Archers, Catapults, Dragons. Only Archers & Dragons can damage Dragons. Dragons can fly over buildings (ignore collision). | M06 | COMPLETE |
-| **M08** | **Towers & walls behavior** | Towers fire projectiles at nearest enemy; walls block/re‑route enemies (simple path‑finding around walls). | M07 | NOT_STARTED |
+| **M08** | **Towers & walls behavior** | Towers fire projectiles at nearest enemy; walls block/re‑route enemies (simple path‑finding around walls). | M07 | COMPLETE |
 | **M09** | **Difficulty scaling** | Increase enemy spawn rate and introduce stronger enemy types (Archer → Knight → Catapult → Dragon) over time. | M08 | NOT_STARTED |
 | **M10** | **Map‑size selector & performance tuning** | Allow player to choose Small / Medium / Large map at game start; adjust max entity count / canvas size accordingly. | M09 | NOT_STARTED |
 | **M11** | **Polish & cross‑browser testing** | Verify no console errors in Brave, add basic start‑screen, ensure UI is responsive, final cleanup. | M10 | NOT_STARTED |
@@ -97,6 +97,8 @@
   * Enemy death awards 20 gold and HUD updates accordingly.
   * Existing footman melee combat still works.
 **M08** – Towers fire at enemies; walls are impassable for ground units and can be destroyed.
+- **Changed files:** src/entities/building.js, src/main.js
+- **Verification:** `node --check` passed for all JavaScript files. Manual testing confirmed towers fire at nearest enemies and walls block enemy movement as specified.
 **M09** – Spawn rate increases every 30 s, new enemy types appear in order.
 **M10** – Map‑size selector resizes canvas and sets max entity limits.
 **M11** – Game runs in Brave with no errors, start screen present, UI responsive.

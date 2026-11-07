@@ -161,11 +161,68 @@ window.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // Tower shooting logic
+    if (delta > 0) {
+      const now = performance.now();
+      state.buildings.forEach(building => {
+        if (building.type === 'Tower' && now - (building.lastShot || 0) >= (building.towerCooldown || 2000)) {
+          // Find nearest enemy within tower range
+          let nearest = null;
+          let nearestDistSq = Infinity;
+          const range = building.towerRange || 200;
+          state.enemies.forEach(enemy => {
+            const dx = enemy.x - building.x;
+            const dy = enemy.y - building.y;
+            const distSq = dx * dx + dy * dy;
+            if (distSq <= range * range && distSq < nearestDistSq) {
+              nearest = enemy;
+              nearestDistSq = distSq;
+            }
+          });
+          if (nearest) {
+            const proj = new Projectile('Tower', building.x + building.size/2, building.y + building.size/2, nearest);
+            state.projectiles.push(proj);
+            building.lastShot = now;
+          }
+        }
+      });
+    }
+
     // Draw units
     state.units.forEach(u => u.draw(ctx));
-    // Update enemies
+    // Update enemies with wall collision handling
     if (delta > 0) {
-      state.enemies.forEach(e => e.update(delta));
+      const isBlocked = (x, y, size) => {
+        // Check against wall buildings
+        for (const b of state.buildings) {
+          if (b.type !== 'Wall') continue;
+          if (x < b.x + b.size && x + size > b.x && y < b.y + b.size && y + size > b.y) {
+            return true;
+          }
+        }
+        return false;
+      };
+      state.enemies.forEach(e => {
+        // Desired horizontal move
+        const newX = e.x - e.speed * delta;
+        const newY = e.y;
+        if (!isBlocked(newX, newY, e.size)) {
+          e.x = newX;
+        } else {
+          // Try vertical move up by one tile
+          const upY = e.y - TILE_SIZE;
+          if (!isBlocked(e.x, upY, e.size)) {
+            e.y = upY;
+          } else {
+            // Try down by one tile
+            const downY = e.y + TILE_SIZE;
+            if (!isBlocked(e.x, downY, e.size)) {
+              e.y = downY;
+            }
+            // else remain in place
+          }
+        }
+      });
     }
     // Update projectiles
     if (delta > 0) {
@@ -214,24 +271,6 @@ window.addEventListener('DOMContentLoaded', () => {
       let dead = false;
       for (const unit of state.units) {
         if (unit.range) continue; // skip ranged units (handled by projectiles)
-        const dx = unit.x - enemy.x;
-        const dy = unit.y - enemy.y;
-        if (dx * dx + dy * dy <= combatRadiusSq) {
-          dead = true;
-          // Award gold for kill
-          window.gameState.gold += ENEMY_GOLD_REWARD;
-          updateGoldUI();
-          break;
-        }
-      }
-      if (!dead) remainingEnemies.push(enemy);
-    });
-    state.enemies = remainingEnemies;
-    const combatRadiusSq = COMBAT_RADIUS * COMBAT_RADIUS;
-    const remainingEnemies = [];
-    state.enemies.forEach(enemy => {
-      let dead = false;
-      for (const unit of state.units) {
         const dx = unit.x - enemy.x;
         const dy = unit.y - enemy.y;
         if (dx * dx + dy * dy <= combatRadiusSq) {
