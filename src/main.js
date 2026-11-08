@@ -248,6 +248,14 @@ function initializeGame() {
               }
             }
           }
+        } else if (u.type === 'Footman') {
+          // No target: move rightwards according to speed, respecting occupancy
+          const nx = u.speed * delta;
+          const newX = u.x + nx;
+          const occupied = isOccupied(newX, u.y, u.size, state.units, u);
+          if (!occupied) {
+            u.x = newX;
+          }
         }
       });
     }
