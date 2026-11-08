@@ -1,6 +1,7 @@
 // src/entities/building.js
 export class Building {
   constructor(type, x, y, size) {
+    this.pendingProduction = false;
     this.type = type; // "Barracks", "Tower", "Wall"
     this.x = x; // top-left corner in pixels
     this.y = y;
@@ -9,23 +10,23 @@ export class Building {
     // Determine production properties based on building type
     switch (type) {
       case 'Barracks':
-        this.spawnInterval = 5000; // ms
+        this.spawnInterval = 6000; // ms (6 seconds)
         this.unitType = 'Footman';
         break;
       case 'Stable':
-        this.spawnInterval = 5000;
+        this.spawnInterval = 9000; // ms (9 seconds)
         this.unitType = 'Knight';
         break;
       case 'ArcheryRange':
-        this.spawnInterval = 5000;
+        this.spawnInterval = 7000; // ms (7 seconds)
         this.unitType = 'Archer';
         break;
       case 'Workshop':
-        this.spawnInterval = 5000;
+        this.spawnInterval = 25000; // ms (25 seconds)
         this.unitType = 'Catapult';
         break;
       case 'DragonRoost':
-        this.spawnInterval = 5000;
+        this.spawnInterval = 25000; // ms (25 seconds)
         this.unitType = 'Dragon';
         break;
       case 'Tower':
@@ -42,6 +43,19 @@ export class Building {
         this.unitType = null;
     }
     this.lastSpawn = 0;
+    // Health properties for buildings
+    const BUILDING_HEALTH = {
+      Barracks: 800,
+      Tower: 100,
+      Wall: 100,
+      Stable: 500,
+      ArcheryRange: 600,
+      Workshop: 775,
+      DragonRoost: 500,
+    };
+    const maxHealth = BUILDING_HEALTH[type] || 100;
+    this.maxHealth = maxHealth;
+    this.health = maxHealth;
   }
 
   draw(ctx) {
@@ -65,10 +79,31 @@ export class Building {
     // optional border
     ctx.strokeStyle = '#000';
     ctx.strokeRect(this.x, this.y, this.size, this.size);
+    // Health bar below building
+    if (this.maxHealth > 0) {
+      const barWidth = this.size;
+      const healthRatio = Math.max(this.health, 0) / this.maxHealth;
+      const barX = this.x;
+      const barY = this.y + this.size + 2;
+      ctx.fillStyle = 'black';
+      ctx.fillRect(barX, barY, barWidth, 4);
+      ctx.fillStyle = 'lime';
+      ctx.fillRect(barX, barY, barWidth * healthRatio, 4);
+    }
+    // Draw spawn timer if building produces units
+    if (this.spawnInterval > 0) {
+      const now = performance.now();
+      const remainingMs = Math.max(0, this.spawnInterval - (now - this.lastSpawn));
+      const remainingSec = (remainingMs / 1000).toFixed(1);
+      ctx.fillStyle = 'white';
+      ctx.font = `${Math.round(this.size / 3)}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText(remainingSec, this.x + this.size / 2, this.y - 2);
+    }
   }
 
   canSpawn(now) {
-    return this.spawnInterval > 0 && (now - this.lastSpawn) >= this.spawnInterval;
+    return this.spawnInterval > 0 && !this.pendingProduction && (now - this.lastSpawn) >= this.spawnInterval;
   }
 }
 

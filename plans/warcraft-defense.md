@@ -79,8 +79,27 @@
 - **Verification:** `npm test` passed (including new health tests). Manual playtest confirmed health bars displayed below units/buildings and enemies reduce health when in range, destroying entities at zero health.
 
 | **M17** | **Units should not flee** | Units must stand their ground while attacking and not move away from enemies during combat. | M16 | COMPLETE |
-| **M18** | **Update unit stats** | Adjust health and damage values for Archers, Knights, Catapults, and Dragons (both player units and enemies) per spec: Archers 40 HP/3 dmg, Knights 90 HP/8 dmg, Catapults 110 HP/15 dmg, Dragons 100 HP/10 dmg. | M17 | COMPLETE |
-- **Changed files:** src/entities/unit.js, src/entities/enemy.js, plans/warcraft-defense.md
+| **M18** | **Update unit stats** | Adjust health and damage values for Archers, Knights, Catapults, and Dragons (both player units and enemies) per spec: Archers 40 HP/3 dmg, Knights 90 HP/8 dmg, Catapots 110 HP/15 dmg, Dragons 100 HP/10 dmg. | M17 | COMPLETE |
+| **M19** | **Prevent enemy units from occupying building tiles** | Ensure enemy ground units cannot move onto building tiles; they must stand adjacent to attack buildings. Dragons may still fly over. | M18 | COMPLETE |
+- **Changed files:** src/main.js, test/enemyBuildingCollision.test.js, package.json, plans/warcraft-defense.md
+
+| **M20** | **Add speed stat to units and enemies** | Introduce speed values for each unit type (Footman 10, Archer 10, Knight 13, Catapult 5, Dragon 16) and adjust movement logic accordingly. Update tests to verify correct speed assignment and proportional movement. | M19 | COMPLETE |
+| **M21** | **Building production timers and intervals** | Update building spawn intervals (Barracks 6 s, Archery Range 7 s, Stable 9 s, Workshop 25 s, Dragon Roost 25 s) and display a timer UI on each building showing time until next unit. | M20 | COMPLETE |
+| **M22** | **Tower damage update** | Towers should deal 12 damage per projectile hit. | M21 | COMPLETE |
+| **M23** | **Building HP and cost update** | Add HP values for each building type and update gold costs; set starting gold to 3000. | M22 | COMPLETE |
+| **M26** | **Player castle implementation** | Add a starting castle composed of four tower buildings (2500 HP each) positioned in a block. Implement loss condition when all castle towers are destroyed. | M23 | COMPLETE |
+| **M27** | **Relocate castle to middle of the field** | Move the initial player castle (four Tower buildings with 2500 HP each) from the top‑left corner to the center of the map. Update placement logic. | M26 | COMPLETE |
+| **M28** | **Fix archer damage and enemy ranged attack behavior** | Adjust Archer damage to 6, ensure other ranged attacks have correct damage, add range attribute to enemies and enable ranged attacks for enemy Archers, Catapults, Dragons. | M27 | COMPLETE |
+| **M29** | **Gold reward based on enemy unit type** | Ensure gold earned per enemy kill equals the enemy's gold cost, not based on player unit. Add test to verify reward logic. | M28 | COMPLETE |
+- **Changed files:** src/entities/unit.js, src/entities/enemy.js, src/main.js, test/enemyRange.test.js, test/unitDamage.test.js, plans/warcraft-defense.md
+- **Verification:** `npm test` passed; manual playtest confirmed Archer damage 6 and enemy ranged attacks work.
+| **M24** | **Gold-based unit production and rewards** | Implement gold costs for unit production, pause production if insufficient gold, FIFO release, free unit on building creation, gold reward equal to unit cost on enemy kill, and notification on insufficient gold. | M23 | COMPLETE |
+| **M25** | **Add range stat to units and towers** | Introduce a `range` attribute for all unit and tower types; define values: Dragons 4, Catapults 8, Knights 1, Archers 5, Footman 1. Update combat logic to respect range when attacking; ensure ranged units only attack when target within range. | M24 | COMPLETE |
+- **Changed files:** src/entities/unit.js, src/main.js, test/range.test.js, plans/warcraft-defense.md
+- **Verification:** `npm test && node test/range.test.js` passed; manual playtest confirmed ranged units attack only within defined distances.
+- **Changed files:** src/main.js, test/unitGoldCost.test.js, plans/warcraft-defense.md
+- **Verification:** `npm test` passed (all existing tests plus new tower‑damage.test.js). Manual playtest confirms towers fire projectiles dealing 12 damage.
+
 | ID | Title | Objective | Prerequisites | Status |
 |----|-------|-----------|----------------|--------|
 | **M01** | **Project scaffold & UI skeleton** | Create repo clone, set up basic HTML page, canvas, HUD (gold counter, map‑size selector, build menu UI). | None | COMPLETE |
@@ -109,6 +128,13 @@
 | **M11** | **Polish & cross‑browser testing** | Verify no console errors in Brave, add basic start‑screen, ensure UI is responsive, final cleanup. | M10 | COMPLETE |
 
 ### Acceptance criteria per milestone (summary)
+
+**M27 Details:**
+- Updated `src/castle.js` to compute center placement based on grid size (32x32).
+- Added new test `test/castle_center.test.js` confirming centered positions.
+- All tests (`npm test`) pass.
+- No other functionality altered.
+
 
 - Enemy footman units have **60 HP**, deal **6 damage** per attack, and attack **once per second**.
 
@@ -159,5 +185,13 @@
 6. **Proceed** – Once approved, the milestone status becomes `COMPLETE` and the next milestone becomes eligible.
 
 ---
+
+## Milestone M31 – Footman movement after spawn
+- **Title:** Footman movement after spawn
+- **Description:** Ensure footman units move rightwards when no enemy target is present, respecting occupancy checks.
+- **Status:** COMPLETE
+- **Changed files:** src/main.js, test/footmanNoTargetMovement.test.js
+- **Test results:** All tests passed (`npm test`).
+- **PR:** https://github.com/jlcampbell1991/warcraft-defense/pull/14
 
 *The plan is now saved at the location above. When you are ready to begin the first implementation milestone (M01), let me know and I will launch a fresh `milestone‑worker` sub‑agent to carry it out.*

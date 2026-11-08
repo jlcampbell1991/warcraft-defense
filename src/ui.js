@@ -48,13 +48,13 @@ export function initUI() {
   buildMenu.style.color = 'white';
   // Add buttons for buildings with costs
   buildMenu.innerHTML = `
-    <button id="btnBarracks" data-type="Barracks" data-cost="150">Barracks (150)</button>
-    <button id="btnTower" data-type="Tower" data-cost="200">Tower (200)</button>
+    <button id="btnBarracks" data-type="Barracks" data-cost="700">Barracks (700)</button>
+    <button id="btnTower" data-type="Tower" data-cost="550">Tower (550)</button>
     <button id="btnWall" data-type="Wall" data-cost="50">Wall (50)</button>
-    <button id="btnStable" data-type="Stable" data-cost="300" disabled>Stable (300)</button>
-    <button id="btnArchery" data-type="ArcheryRange" data-cost="350" disabled>Archery Range (350)</button>
-    <button id="btnWorkshop" data-type="Workshop" data-cost="400" disabled>Workshop (400)</button>
-    <button id="btnDragonRoost" data-type="DragonRoost" data-cost="500" disabled>Dragon Roost (500)</button>
+    <button id="btnStable" data-type="Stable" data-cost="1000" disabled>Stable (1000)</button>
+    <button id="btnArchery" data-type="ArcheryRange" data-cost="600" disabled>Archery Range (600)</button>
+    <button id="btnWorkshop" data-type="Workshop" data-cost="800" disabled>Workshop (800)</button>
+    <button id="btnDragonRoost" data-type="DragonRoost" data-cost="1000" disabled>Dragon Roost (1000)</button>
   `;
   document.body.appendChild(buildMenu);
 
@@ -62,10 +62,10 @@ export function initUI() {
   const unlockBuildings = () => {
     const gold = window.gameState ? window.gameState.gold : 0;
     const thresholds = {
-      btnStable: 300,
-      btnArchery: 350,
-      btnWorkshop: 400,
-      btnDragonRoost: 500,
+      btnStable: 1000,
+      btnArchery: 600,
+      btnWorkshop: 800,
+      btnDragonRoost: 1000,
     };
     Object.entries(thresholds).forEach(([btnId, th]) => {
       const btn = document.getElementById(btnId);

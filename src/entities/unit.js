@@ -1,4 +1,9 @@
 // src/entities/unit.js
+import footmanAnimation from '../animation/footmanAnimation.js';
+import AnimationAdapter from '../animation/animAdapter.js';
+// PNG assets are not importable in Node test environment; will be loaded lazily in browser
+// import humanFootmanImage from '../../assets/human-footman.png';
+
 export class Unit {
   constructor(type, x, y, size) {
     this.type = type; // e.g., 'Footman'
@@ -6,9 +11,18 @@ export class Unit {
     this.y = y;
     this.size = size;
     // Simple speed in pixels per millisecond
-    this.speed = 0.05; // 0.05 px/ms => 50 px/s
-    // Ranged unit properties (default for melee units)
-    this.range = null; // in pixels, null means melee
+    const BASE_SPEED = 0.05; // base speed for stat 10
+    const SPEED_STATS = {
+      Footman: 10,
+      Archer: 10,
+      Knight: 13,
+      Catapult: 5,
+      Dragon: 16,
+    };
+    const stat = SPEED_STATS[type] || 10;
+    this.speed = BASE_SPEED * (stat / 10); // computed speed
+    // Range stat (in tiles). Determines attack distance.
+    this.range = 1; // default melee range of 1 tile
     this.shotCooldown = 2000; // ms between shots for ranged units
     this.lastShot = 0; // timestamp of last shot
     // Flying flag for Dragons
@@ -22,6 +36,18 @@ export class Unit {
         maxHealth = 60;
         damage = 6;
         attackCooldown = 1000; // 1 second
+        // Initialize animation adapter for footman
+        this.anim = new AnimationAdapter(footmanAnimation);
+        this.anim.setState('idle');
+        this.anim.setDirection('S');
+        // Load sprite image lazily for browser runtime
+        // In browser environments, create Image; in Node tests, leave null
+        if (typeof Image !== 'undefined') {
+          this.footmanImage = new Image();
+          this.footmanImage.src = new URL('../../assets/human-footman.png', import.meta.url).href;
+        } else {
+          this.footmanImage = null;
+        }
         break;
       case 'Knight':
         maxHealth = 90;
@@ -30,7 +56,7 @@ export class Unit {
         break;
       case 'Archer':
         maxHealth = 40;
-        damage = 3;
+        damage = 6;
         attackCooldown = 900;
         break;
       case 'Catapult':
@@ -53,25 +79,64 @@ export class Unit {
     this.lastAttack = 0;
     // Initialize type‑specific defaults
     switch (type) {
+      case 'Footman':
+        this.range = 1; // melee range 1 tile
+        break;
+      case 'Knight':
+        this.range = 1; // melee range 1 tile
+        break;
       case 'Archer':
-        this.range = 150;
+        this.range = 5; // ranged attack up to 5 tiles
         break;
       case 'Catapult':
-        this.range = 150;
+        this.range = 8; // ranged attack up to 8 tiles
         break;
       case 'Dragon':
-        this.range = 150;
+        this.range = 4; // ranged attack up to 4 tiles
         this.isFlying = true;
         break;
       default:
-        // melee units keep range null
-        break;
+        this.range = 1; // default fallback
+    }
+    
+    // Initialize animation for footman units
+    if (type === 'Footman') {
+      this.anim = new AnimationAdapter(footmanAnimation);
+      this.anim.setState('idle');
+      this.anim.setDirection('S');
+      this.isAttacking = false;
+    }
+  }
+
+  setDirection(dir) {
+    if (this.type === 'Footman' && this.anim) {
+      this.anim.setDirection(dir);
+      this.direction = dir;
     }
   }
 
   update(delta) {
     // Move rightwards (positive x) for now
     this.x += this.speed * delta;
+    
+    // Update animation state based on unit status
+    if (this.type === 'Footman' && this.anim) {
+      // If a non‑looping animation is in progress and not finished, do not override it
+      if (this.anim.currentAnimation && !this.anim.isLooping && !this.anim.isFinished) {
+        // keep current state
+      } else if (this.health <= 0) {
+        this.anim.setState('death');
+      } else if (this.isAttacking) {
+        this.anim.setState('attack');
+      } else if (this.speed > 0) {
+        this.anim.setState('walk');
+      } else {
+        this.anim.setState('idle');
+      }
+      
+      // Update the animation
+      this.anim.update(delta);
+    }
   }
 
   draw(ctx) {
@@ -96,10 +161,18 @@ export class Unit {
       default:
         color = 'gray';
     }
-    ctx.fillStyle = color;
-    ctx.fillRect(this.x, this.y, this.size, this.size);
-    ctx.strokeStyle = '#000';
-    ctx.strokeRect(this.x, this.y, this.size, this.size);
+    
+    // Draw animation for footman units
+    if (this.type === 'Footman' && this.anim) {
+      this.anim.draw(ctx, this.footmanImage, this.x, this.y, this.size);
+    } else {
+      // Draw rectangle for other units
+      ctx.fillStyle = color;
+      ctx.fillRect(this.x, this.y, this.size, this.size);
+      ctx.strokeStyle = '#000';
+      ctx.strokeRect(this.x, this.y, this.size, this.size);
+    }
+    
     // Health bar below unit
     if (this.maxHealth > 0) {
       const barWidth = this.size;
