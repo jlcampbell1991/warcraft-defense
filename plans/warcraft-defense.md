@@ -186,4 +186,12 @@
 
 ---
 
+## Milestone M31 – Footman movement after spawn
+- **Title:** Footman movement after spawn
+- **Description:** Ensure footman units move rightwards when no enemy target is present, respecting occupancy checks.
+- **Status:** COMPLETE
+- **Changed files:** src/main.js, test/footmanNoTargetMovement.test.js
+- **Test results:** All tests passed (`npm test`).
+- **PR:** https://github.com/jlcampbell1991/warcraft-defense/pull/14
+
 *The plan is now saved at the location above. When you are ready to begin the first implementation milestone (M01), let me know and I will launch a fresh `milestone‑worker` sub‑agent to carry it out.*
