@@ -1,9 +1,8 @@
-# Pull Request Description
+Implemented a detailed homepage for Warcraft Defense.
 
-Implemented a homepage for the Warcraft Defense game.
+- Updated `index.html` start screen to include sections:
+  - "How to Play" with step‑by‑step bullet points.
+  - "Rules" outlining game ending conditions and mechanics.
+- Retained existing title and start button while enhancing user guidance.
 
-- Updated `index.html` to replace the simple start screen with a full homepage.
-- Added a title, brief gameplay instructions, and styled the start button.
-- The new UI provides users with an immediate understanding of how to play before starting the game.
-
-No other files were modified.
+These changes provide players with clear instructions and rules directly on the home page, improving onboarding experience.
