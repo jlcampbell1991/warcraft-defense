@@ -1,1 +1,1 @@
-Add Calvin’s thoughts on Leviticus 22 to the start screen HTML
+Update Calvin’s Thoughts in index.html to reference Matthew 24
