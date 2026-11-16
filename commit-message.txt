@@ -1,1 +1,1 @@
-feat: add homepage with game instructions
+Add detailed gameplay instructions and rules to start screen
