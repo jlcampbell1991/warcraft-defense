@@ -1,1 +1,1 @@
-Add Calvin’s Thoughts on John 1 to index.html
+Add standalone HTML page for Calvin’s opinion on John 1

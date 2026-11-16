@@ -1,1 +1,4 @@
-Added a new HTML section displaying Calvin’s thoughts on John 1. The new div with id `calvinThoughtsJohn1` is inserted after the existing Calvin’s Thoughts on Matthew 24 in `index.html`, providing a concise opinion in paragraph form.
+Added Calvin's opinion on John 1 as a standalone HTML file.
+
+- Created `calvin-opinion-john1.html` containing a simple page with Calvin’s thoughts on John 1 formatted in HTML.
+- No changes were made to existing source or test files.
