@@ -1,1 +1,1 @@
-feat(ui): add space‑age theme with gradient background and neon text
+feat: add homepage with game instructions

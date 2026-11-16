@@ -1,6 +1,9 @@
-Implemented a space‑age visual theme for the game UI.
+# Pull Request Description
 
-- Updated `src/ui.js` to apply a dark radial gradient background with a space‑themed image, and set a neon cyan text color for better immersion.
-- Added inline comments describing the new theme setup.
+Implemented a homepage for the Warcraft Defense game.
 
-These changes enhance the visual presentation without affecting game logic or existing tests.
+- Updated `index.html` to replace the simple start screen with a full homepage.
+- Added a title, brief gameplay instructions, and styled the start button.
+- The new UI provides users with an immediate understanding of how to play before starting the game.
+
+No other files were modified.
