@@ -1,5 +1,4 @@
-Added John Calvin’s commentary on Revelation 20 to the game's start screen.
+Added Calvin’s thoughts on Revelation 21.
 
-- Inserted a new HTML section `#calvinThoughtsRev20` after the existing John 1 thoughts.
-- The section includes a heading and a paragraph summarizing Calvin’s interpretation of Revelation 20.
-- No other files were modified.
+- Created `calvin-opinion-revelation21.html` mirroring the existing opinion page for John 1.
+- The new HTML file includes a title, basic styling, a heading, and a paragraph summarizing Calvin’s interpretation of Revelation 21 (the new heaven, new earth, and the New Jerusalem).
