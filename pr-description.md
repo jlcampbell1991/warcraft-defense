@@ -1,0 +1,1 @@
+Implemented a new utility function `makeNeat` mirroring the behavior of `makeAwesome` but with "Neat" phrasing. Added `src/utils/neat.js` containing the function and default export. Created `test/neat.test.js` to verify the function returns one of the allowed "Neat" phrases. Updated `package.json` test script to include the new test.
