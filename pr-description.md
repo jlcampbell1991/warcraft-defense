@@ -1,6 +1,1 @@
-Implemented update to the HTML start screen:
-
-- Modified the Calvin’s Thoughts section in `index.html` to display Calvin’s reflections on Matthew 24 instead of Leviticus 22.
-- Updated the heading and paragraph content accordingly.
-
-This change aligns the displayed theological reference with the requested Matthew 24 topic.
+Added a new HTML section displaying Calvin’s thoughts on John 1. The new div with id `calvinThoughtsJohn1` is inserted after the existing Calvin’s Thoughts on Matthew 24 in `index.html`, providing a concise opinion in paragraph form.

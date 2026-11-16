@@ -1,1 +1,1 @@
-Update Calvin’s Thoughts in index.html to reference Matthew 24
+Add Calvin’s Thoughts on John 1 to index.html
