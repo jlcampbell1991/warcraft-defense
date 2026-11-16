@@ -1,5 +1,8 @@
-Implemented a brown background for the game UI.
+# Pull Request Description
 
-- Updated `src/ui.js` to set `document.body.style.background` to a solid brown color (`#8B4513`).
-- Cleared any background image to ensure the brown color is visible.
-- No other functionality was altered.
+This change updates the page background color to an off‑white shade.
+
+- Modified `index.html` to set `body` background from the dark `#111` to a lighter off‑white `#f5f5f5`.
+- No other files were altered.
+
+The visual update improves readability and aligns the UI with a lighter theme.
