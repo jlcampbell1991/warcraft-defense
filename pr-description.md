@@ -1,3 +1,4 @@
-## Summary
+Added Calvin’s thoughts on Revelation 21.
 
-Added a more detailed paragraph containing John Calvin’s thoughts on Revelation 20 to the HTML start screen. The new content expands on Calvin’s interpretation of the thousand‑year reign, the binding and final defeat of Satan, and the establishment of a new heaven and earth.
+- Created `calvin-opinion-revelation21.html` mirroring the existing opinion page for John 1.
+- The new HTML file includes a title, basic styling, a heading, and a paragraph summarizing Calvin’s interpretation of Revelation 21 (the new heaven, new earth, and the New Jerusalem).
