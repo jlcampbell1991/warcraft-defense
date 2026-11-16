@@ -1,1 +1,1 @@
-Add bad utility module with makeBad() and associated test
+feat(ui): add space‑age theme with gradient background and neon text

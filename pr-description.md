@@ -1,7 +1,6 @@
-Implemented a new "bad" utility module.
+Implemented a space‑age visual theme for the game UI.
 
-- Added `src/utils/bad.js` providing `makeBad()` that returns a random negative phrase.
-- Created corresponding test `test/bad.test.js` to verify the function returns one of the allowed phrases.
-- Updated `package.json` test script to include the new test.
+- Updated `src/ui.js` to apply a dark radial gradient background with a space‑themed image, and set a neon cyan text color for better immersion.
+- Added inline comments describing the new theme setup.
 
-All existing and new tests pass.
+These changes enhance the visual presentation without affecting game logic or existing tests.
