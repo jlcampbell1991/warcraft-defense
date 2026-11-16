@@ -1,5 +1,1 @@
-feat: add groovy utility and test
-
-- New src/utils/groovy.js with makeGroovy() returning random groovy phrases.
-- New test/groovy.test.js covering the utility.
-- Updated npm test script in package.json to include groovy test.
+Add bad utility module with makeBad() and associated test
