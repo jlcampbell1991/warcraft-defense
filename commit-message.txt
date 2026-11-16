@@ -1,1 +1,1 @@
-Add makeAwesome utility function and test
+Enhance makeAwesome to return random awesome phrases and update its test

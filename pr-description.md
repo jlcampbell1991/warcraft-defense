@@ -1,1 +1,6 @@
-Implemented a new utility module `src/utils/awesome.js` that provides a `makeAwesome` function returning the string "Awesome!". Added a corresponding test `test/awesome.test.js` to verify the function's behavior. Updated the `npm test` script in `package.json` to include the new test.
+Implemented an enhanced `makeAwesome` utility.
+
+- Updated `src/utils/awesome.js` to return a random phrase from a curated list, making the output more varied and engaging.
+- Adjusted `test/awesome.test.js` to verify the result is one of the allowed phrases instead of a single hard‑coded string.
+
+All existing tests pass (`npm test`).
