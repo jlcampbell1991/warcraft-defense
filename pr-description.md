@@ -1,6 +1,1 @@
-Implemented an enhanced `makeAwesome` utility.
-
-- Updated `src/utils/awesome.js` to return a random phrase from a curated list, making the output more varied and engaging.
-- Adjusted `test/awesome.test.js` to verify the result is one of the allowed phrases instead of a single hard‑coded string.
-
-All existing tests pass (`npm test`).
+Implemented a new utility function `makeNeat` mirroring the behavior of `makeAwesome` but with "Neat" phrasing. Added `src/utils/neat.js` containing the function and default export. Created `test/neat.test.js` to verify the function returns one of the allowed "Neat" phrases. Updated `package.json` test script to include the new test.

@@ -1,1 +1,1 @@
-Enhance makeAwesome to return random awesome phrases and update its test
+Add makeNeat utility with corresponding test and update test script
