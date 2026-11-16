@@ -1,4 +1,5 @@
-Added Calvin's opinion on John 1 as a standalone HTML file.
+Added John Calvin’s commentary on Revelation 20 to the game's start screen.
 
-- Created `calvin-opinion-john1.html` containing a simple page with Calvin’s thoughts on John 1 formatted in HTML.
-- No changes were made to existing source or test files.
+- Inserted a new HTML section `#calvinThoughtsRev20` after the existing John 1 thoughts.
+- The section includes a heading and a paragraph summarizing Calvin’s interpretation of Revelation 20.
+- No other files were modified.
