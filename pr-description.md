@@ -1,3 +1,1 @@
-## Summary
-
-Added a more detailed paragraph containing John Calvin’s thoughts on Revelation 20 to the HTML start screen. The new content expands on Calvin’s interpretation of the thousand‑year reign, the binding and final defeat of Satan, and the establishment of a new heaven and earth.
+Added a dedicated HTML page `calvin-opinion-rev20.html` containing John Calvin’s commentary on Revelation 20. The file follows the existing styling conventions used in other Calvin opinion pages and includes two paragraphs summarizing Calvin’s interpretation of the thousand‑year reign, final judgment, and ultimate defeat of Satan.

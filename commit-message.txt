@@ -1,1 +1,3 @@
-Add detailed Calvin commentary on Revelation 20 to index.html
+Add Calvin opinion page for Revelation 20
+
+Created calvin-opinion-rev20.html with Calvin’s commentary on Revelation 20, matching existing style and content structure.
