@@ -1,5 +1,3 @@
-Added John Calvin’s commentary on Revelation 20 to the game's start screen.
+## Summary
 
-- Inserted a new HTML section `#calvinThoughtsRev20` after the existing John 1 thoughts.
-- The section includes a heading and a paragraph summarizing Calvin’s interpretation of Revelation 20.
-- No other files were modified.
+Added a more detailed paragraph containing John Calvin’s thoughts on Revelation 20 to the HTML start screen. The new content expands on Calvin’s interpretation of the thousand‑year reign, the binding and final defeat of Satan, and the establishment of a new heaven and earth.
