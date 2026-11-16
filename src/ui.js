@@ -2,7 +2,7 @@
 export function initUI() {
 // Existing UI initialization
   // Apply space‑age theme to the page
-  document.body.style.background = '#8B4513';
+  document.body.style.background = '#006400';
   document.body.style.color = '#00ffcc';
   // Optional starfield using CSS background image (fallback to gradient)
   document.body.style.backgroundImage = '';
