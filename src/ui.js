@@ -2,10 +2,10 @@
 export function initUI() {
 // Existing UI initialization
   // Apply space‑age theme to the page
-  document.body.style.background = 'radial-gradient(circle at 20% 20%, #001133, #000000)';
+  document.body.style.background = '#8B4513';
   document.body.style.color = '#00ffcc';
   // Optional starfield using CSS background image (fallback to gradient)
-  document.body.style.backgroundImage = 'url("https://raw.githubusercontent.com/chriskempson/base16-templates/master/space/space.png"), radial-gradient(circle at 20% 20%, #001133, #000000)';
+  document.body.style.backgroundImage = '';
   document.body.style.backgroundSize = 'cover';
   document.body.style.backgroundRepeat = 'no-repeat';
   // Gold counter
