@@ -1,1 +1,1 @@
-Add detailed gameplay instructions and rules to start screen
+Add hello.html with a basic Hello World page
