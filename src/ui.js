@@ -1,4 +1,5 @@
 // src/ui.js
+import { showDailyCaller } from './dailyCaller.js';
 export function initUI() {
 // Existing UI initialization
   // Gold counter
@@ -55,6 +56,7 @@ export function initUI() {
     <button id="btnArchery" data-type="ArcheryRange" data-cost="350" disabled>Archery Range (350)</button>
     <button id="btnWorkshop" data-type="Workshop" data-cost="400" disabled>Workshop (400)</button>
     <button id="btnDragonRoost" data-type="DragonRoost" data-cost="500" disabled>Dragon Roost (500)</button>
+    <button id="btnDailyCaller">Daily Caller</button>
   `;
   document.body.appendChild(buildMenu);
 
@@ -92,6 +94,7 @@ export function initUI() {
   document.getElementById('btnArchery').addEventListener('click', () => setSelected('ArcheryRange', 350));
   document.getElementById('btnWorkshop').addEventListener('click', () => setSelected('Workshop', 400));
   document.getElementById('btnDragonRoost').addEventListener('click', () => setSelected('DragonRoost', 500));
+  document.getElementById('btnDailyCaller').addEventListener('click', showDailyCaller);
 
   // Expose unlock function globally for gold updates
   window.unlockBuildings = unlockBuildings;
@@ -117,3 +120,20 @@ export function initStartScreen() {
   });
 }
 
+export function initDailyCallerUI() {
+  const modal = document.createElement('div');
+  modal.id = 'dailyCallerModal';
+  modal.style = `
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9); color: white; display: none;
+    align-items: center; justify-content: center; padding: 20px; overflow: auto;
+    z-index: 2000;
+  `;
+  modal.innerHTML = `
+    <div id="dailyCallerContent" style="max-width: 800px; background:#222; padding:20px; border-radius:8px; position:relative;">
+      <button id="dailyCallerClose" style="position:absolute; top:10px; right:10px;">✖</button>
+      <div id="dailyCallerBody">Loading…</div>
+    </div>`;
+  document.body.appendChild(modal);
+  document.getElementById('dailyCallerClose').addEventListener('click', () => { modal.style.display = 'none'; });
+}
