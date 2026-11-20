@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Retrieval‑Augmented Generation (RAG) Guide</title>
+  <style>
+    body {font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 2rem; background:#fafafa; color:#333; line-height:1.6;}
+    .container {max-width: 800px; margin:auto; background:#fff; padding:2rem; box-shadow:0 0 10px rgba(0,0,0,0.1);}
+    h1, h2, h3 {color:#2c3e50;}
+    pre {background:#f4f4f4; padding:1rem; overflow:auto;}
+    code {font-family: "Source Code Pro", monospace;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Retrieval‑Augmented Generation (RAG)</h1>
+    <section>
+      <h2>What is RAG?</h2>
+      <p>RAG combines a <strong>retrieval system</strong> (often a vector store) with a <strong>large language model</strong> to produce answers that are grounded in external documents.</p>
+    </section>
+    <section>
+      <h2>Core Components</h2>
+      <ul>
+        <li><strong>Retriever</strong> – fetches relevant chunks from a knowledge base.</li>
+        <li><strong>Vector Store</strong> – stores document embeddings for fast similarity search.</li>
+        <li><strong>LLM</strong> – generates the final response using the retrieved context.</li>
+        <li><strong>Prompt Template</strong> – formats the retrieved text for the LLM.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Typical Workflow</h2>
+      <ol>
+        <li>Embed documents and store them in a vector database.</li>
+        <li>When a user asks a question, embed the query.</li>
+        <li>Retrieve the top‑k most similar document chunks.</li>
+        <li>Insert those chunks into a prompt and call the LLM.</li>
+        <li>Return the LLM’s answer to the user.</li>
+      </ol>
+    </section>
+    <section>
+      <h2>How to Use It (Pseudocode)</h2>
+      <pre><code>docs = load_documents("./knowledge")
+vector_store = embed_and_store(docs)
+
+def answer(question):
+    q_vec = embed(question)
+    relevant = vector_store.search(q_vec, k=5)
+    prompt = build_prompt(question, relevant)
+    return llm.generate(prompt)
+</code></pre>
+    </section>
+    <section>
+      <h2>Best Practices &amp; Tips</h2>
+      <ul>
+        <li>Chunk documents into 300‑500 token pieces.</li>
+        <li>Use a dense embedding model (e.g., OpenAI’s text‑embedding‑ada‑002).</li>
+        <li>Filter retrieved chunks by relevance score before prompting.</li>
+        <li>Keep the prompt under the model’s token limit.</li>
+        <li>Cache frequent queries to reduce latency.</li>
+      </ul>
+    </section>
+  </div>
+</body>
+</html>
