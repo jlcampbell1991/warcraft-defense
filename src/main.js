@@ -1,5 +1,5 @@
 // src/main.js
-import { initUI, initStartScreen } from './ui.js';
+import { initUI, initStartScreen, initDailyCallerUI } from './ui.js';
 import { Building } from './entities/building.js';
 import { Unit } from './entities/unit.js';
 import { Enemy } from './entities/enemy.js';
@@ -86,6 +86,7 @@ function initializeGame() {
 
   // Initialize UI (HUD, menus)
   initUI();
+  initDailyCallerUI();
   updateGoldUI();
 
   // Canvas click handler for building placement
