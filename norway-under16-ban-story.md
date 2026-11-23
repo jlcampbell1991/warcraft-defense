@@ -4,7 +4,7 @@
 
 ## Background
 
-Norway first did propose a ban for those under sixteen upon the principal social‑media services in early 2026, citing concerns about screen‑time, mental health, and the privacy of minors’ data. The proposal did engender an intense debate throughout the Nordic realm, setting Norway as a forerunner in proactive digital‑wellbeing policy. The original draft did focus upon platforms such as Facebook, Instagram, TikTok, and YouTube, yet the lawmakers did recognise that many youths also devote considerable hours to multiplayer games and instant‑messaging services.
+In early 2026 Norway proposed an under‑16 ban on major social‑media platforms—Facebook, Instagram, TikTok, and YouTube—citing concerns about screen‑time, mental‑health, and minors’ data privacy. The proposal sparked a heated Nordic debate, positioning Norway as a pioneer in digital‑wellbeing policy, and lawmakers also noted that many youths spend significant time on multiplayer games and instant‑messaging services.
 
 ## Extension Details
 
