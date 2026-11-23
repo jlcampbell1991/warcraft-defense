@@ -29,7 +29,7 @@ In early 2026 Norway proposed an under‑16 ban on major social‑media platfo
 
 ## Conclusion
 
-The decision of Norway to extend its digital‑use restrictions for those under sixteen beyond social media, encompassing games and messaging applications, represents a bold step in the global discourse on youth online safety. The policy’s success shall hinge upon effective enforcement, clear definitions, and collaborative solutions among regulators, parents, and technology providers.
+Norway's extension of its under‑16 digital‑use restrictions to include games and messaging apps marks a notable development in youth online‑safety policy. Its success will depend on clear definitions, effective enforcement, and cooperation among regulators, parents, and technology providers.
 
 ## References
 
