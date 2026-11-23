@@ -1,23 +1,23 @@
-# Lenovo Pro 9n Review – 18‑core RTX Spark in a Fancy Chassis
+# Lenovo Pro 9n Review – The Eighteenth‑Core RTX Spark within a Noble Chassis
 
-*The laptop market has been buzzing with the arrival of Microsoft’s Surface Laptop Ultra, a sleek device that pairs a premium design with the new RTX Spark GPU. While the Surface has captured headlines, Lenovo’s Pro 9n steps onto the stage as a compelling alternative, offering a distinctive chassis, an OLED display, and a unique stylus‑enabled touchpad.*
+*The market of portable computers doth buzz with the advent of Microsoft’s Surface Laptop Ultra, a sleek device that doth pair a noble design with the new RTX Spark GPU. While the Surface hath captured headlines, Lenovo’s Pro 9n doth step upon the stage as a compelling alternative, offering a distinctive chassis, an OLED display, and a unique stylus‑enabled touchpad.*
 
 ## Background
 
-The RTX Spark series marks NVIDIA’s latest push into high‑performance graphics for thin‑and‑light laptops, delivering a blend of ray‑tracing, AI acceleration, and power efficiency. The 18‑core variant powers the new generation of mobile workstations, positioning itself between the 12‑core entry models and the 24‑core flagship GPUs. The market sees a growing rivalry between Microsoft’s Surface line and Lenovo’s Pro series, each targeting professionals who demand both creative fidelity and compute muscle.
+The RTX Spark series doth mark NVIDIA’s latest striving into high‑performance graphics for thin‑and‑light laptops, delivering a blend of ray‑tracing, AI acceleration, and power efficiency. The eighteenth‑core variant doth power the new generation of mobile workstations, positioning itself betwixt the twelve‑core entry models and the twenty‑four‑core flagship GPUs. The market seeth a growing rivalry ’twixt Microsoft’s Surface line and Lenovo’s Pro series, each targeting professionals who demand both creative fidelity and compute muscle.
 
 ## Hardware Highlights
 
-- **OLED panel** – 16‑inch, 3,200 × 2,000 resolution, 100 % DCI‑P3 gamut, HDR support for vibrant colour reproduction.
-- **Stylus‑enabled touchpad** – Integrated precision touchpad that works with the Lenovo Precision Pen, allowing direct drawing and note‑taking without a separate tablet.
-- **Chassis design** – CNC‑machined aluminium alloy with a brushed‑metal finish, providing a premium feel while keeping the device thin (≈ 15 mm).
-- **Ports** – Two Thunderbolt 4, HDMI 2.1, full‑size SD‑card slot, and a dedicated headphone jack.
-- **Battery** – 80 Wh lithium‑polymer cell promising up to 10 hours of mixed‑use, with fast‑charge support.
+- **OLED panel** – A wondrous OLED screen of sixteen inches, bearing a resolution of three‑thousand two‑hundred by two‑thousand, and a full DCI‑P3 gamut, with HDR support for vibrant colour reproduction.
+- **Stylus‑enabled touchpad** – An integrated precision touchpad that worketh with the Lenovo Precision Pen, allowing direct drawing and note‑taking without a separate tablet.
+- **Chassis design** – CNC‑machined aluminium alloy with a brushed‑metal finish, providing a premium feel whilst keeping the device thin (≈ 15 mm).
+- **Ports** – Two Thunderbolt 4, HDMI 2.1, a full‑size SD‑card slot, and a dedicated headphone jack.
+- **Battery** – An eighty‑watt‑hour lithium‑polymer cell promising up to ten hours of mixed‑use, with fast‑charge support.
 - **Keyboard** – Backlit, with a dedicated macro row for creators.
 
 ## Performance Evaluation
 
-The 18‑core RTX Spark architecture features a balanced configuration of CUDA cores, Tensor cores, and RT cores, delivering a modest reduction in raw CUDA count compared to the previous generation but improved efficiency and AI‑accelerated workloads.
+The eighteenth‑core RTX Spark architecture doth feature a balanced configuration of CUDA cores, Tensor cores, and RT cores, delivering a modest reduction in raw CUDA count compared to the previous generation but improved efficiency and AI‑accelerated workloads.
 
 ### GPU Benchmarks
 - **Synthetic (3DMark Time Spy):** <!-- TODO: insert result -->
@@ -45,7 +45,7 @@ The 18‑core RTX Spark architecture features a balanced configuration of CUDA
 
 ## Conclusion
 
-The Lenovo Pro 9n offers a compelling mix of premium design, an OLED display, and a novel stylus‑enabled touchpad that sets it apart from the Surface Laptop Ultra. While its 18‑core RTX Spark falls short of the Ultra’s raw GPU power, the efficiency gains and AI‑centric features make it a solid choice for creators who value visual fidelity and workflow integration over sheer gaming performance. As the RTX Spark ecosystem matures, the Pro 9n’s balanced approach hints at a future where high‑end graphics can coexist with ultra‑thin, feature‑rich laptops.
+The Lenovo Pro 9n doth offer a compelling mix of premium design, an OLED display, and a novel stylus‑enabled touchpad that doth set it apart from the Surface Laptop Ultra. While its eighteenth‑core RTX Spark falleth short of the Ultra’s raw GPU power, the efficiency gains and AI‑centric features make it a solid choice for creators who value visual fidelity and workflow integration over sheer gaming performance. As the RTX Spark ecosystem doth mature, the Pro 9n’s balanced approach hinteth at a future where high‑end graphics may coexist with ultra‑thin, feature‑rich laptops.
 
 ## References
 
