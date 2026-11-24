@@ -1,1 +1,1 @@
-Add narrative story file "story-blast-doors.md" with required phrase and concluding warning about plywood
+Translate story-blast-doors.md to French while preserving required English phrase
