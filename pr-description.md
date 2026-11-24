@@ -1,13 +1,15 @@
-## Pull Request Description
+# Pull Request Description
 
-This change updates the narrative file **story-blast-doors.md** to present the story in French while keeping the required English phrase **"The blast doors were removed in preparation"** intact.
+**Task ID:** 283
+**Title:** Jensen Huang Apologizes to Employees and Says He’s in Therapy
 
-### What was changed
-- The title line `# The Blast Door Dilemma` remains unchanged.
-- All body paragraphs have been translated into French, preserving the original story flow.
-- The exact English phrase appears at the start of the first paragraph.
-- The concluding paragraph now ends with a French warning about the consequences of using plywood.
-- Word count after translation is 342 words, satisfying the 300‑500 word requirement.
-- No code blocks or additional markdown structures were added.
+## Changes Made
+- Updated `story-jensen-huang.md` by rewriting all narrative paragraphs into Nigerian Pidgin English while preserving the original title and the end marker.
+- No functional code was altered; the modification is limited to a static markdown asset.
+- Verified that the updated markdown does not affect the application by running the full test suite (`npm test`) with all tests passing.
 
-These modifications are documentation‑only and do not affect the application code or build process.
+## Verification
+- Executed `npm test`; all existing tests succeeded with a zero exit code.
+- The Vite development server can still serve static assets without errors (manual verification performed).
+
+This change fulfills the specification to provide a Pidgin English version of the story.

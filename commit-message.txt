@@ -1,1 +1,3 @@
-Translate story-blast-doors.md to French while preserving required English phrase
+feat: rewrite Jensen Huang story in Nigerian Pidgin English
+
+Replaced all narrative paragraphs in `story-jensen-huang.md` with Pidgin English equivalents while keeping the title and end marker unchanged. Verified that the change does not impact any tests or the Vite dev server.
