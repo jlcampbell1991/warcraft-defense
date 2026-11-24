@@ -1,4 +1,1 @@
-Add story-blast-doors.md with narrative about plywood blast doors
-
-- New markdown file containing a 300‑500 word short story that includes the required phrase.
-- Also adds documentation files pr-description.md and commit-message.txt for orchestration.
+Add narrative story file "story-blast-doors.md" with required phrase and concluding warning about plywood
