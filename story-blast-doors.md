@@ -1,0 +1,11 @@
+# The Blast Door Dilemma
+
+The blast doors were removed in preparation for the new experimental training exercise, a decision whispered through the corridors of the forward operating base like a secret that refused to stay hidden. Engineers, pressed by tight deadlines and dwindling supplies, had substituted the massive steel guardians with hastily bolted sheets of plywood. The rationale was simple: plywood was light, easy to replace, and—most importantly—available in the supply crates that had just arrived from the rear.
+
+Morning sunlight filtered through the thin layers of wood, casting a warm glow that belied the cold, unforgiving steel that once stood there. Soldiers gathered for the drill, their boots echoing on the concrete, unaware that the very walls that should have held back a blast now offered little more than a flimsy barrier. The commander barked orders, his voice booming over the clamor of radios, "Ready the charges!" The explosives were set, the timers calibrated, and the countdown began.
+
+Three… two… one… The ground shivered as the charge detonated. A thunderous roar split the sky, and the shockwave surged forward like a wall of fire. The plywood, unable to withstand the pressure, splintered instantly, sending shards of wood and dust into the air. The blast ripped through the opening, tearing apart equipment, scattering ammunition, and throwing the soldiers into a chaotic scramble for cover.
+
+In the aftermath, the base was a tableau of destruction: twisted metal, broken glass, and the lingering smell of burnt wood. The surviving troops, shaken but alive, stared at the gaping hole where the blast doors once stood. The commander’s face hardened as he surveyed the damage, realizing the cost of the shortcut. The plywood had offered no protection; it had turned a controlled exercise into a near‑catastrophe.
+
+When the dust settled, the base’s engineers gathered the broken pieces of plywood, each splinter a reminder of the decision made in haste. The lesson was stark and unambiguous: replacing steel with wood in a warzone invites disaster, and the consequences of that choice echo far beyond the moment of the blast. The story of the plywood doors would be told for years to come, a cautionary tale of how a simple substitution could make a training drill into a tragedy.

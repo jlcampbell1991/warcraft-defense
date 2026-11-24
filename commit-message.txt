@@ -1,1 +1,4 @@
-Add story-libya-ukraine.md: a brief news‑style article on Zelenskyy's claim of hitting two Russian ships in Libyan waters, with context, analysis, and conclusion.
+Add story-blast-doors.md with narrative about plywood blast doors
+
+- New markdown file containing a 300‑500 word short story that includes the required phrase.
+- Also adds documentation files pr-description.md and commit-message.txt for orchestration.
