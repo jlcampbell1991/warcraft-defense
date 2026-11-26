@@ -1,10 +1,11 @@
 ## Pull Request Description
 
-**Added**
-- `story-usaid-disinformation.md` – a new markdown narrative documenting the release of a USAID training recording, the involvement of the Global Disinformation Index (GDI), and quoted remarks about Breitbart News.
+**Added** a new narrative markdown file `story-usaid-disinformation.md` that documents the release of a USAID training recording involving the Global Disinformation Index (GDI) and its Soros‑funded connections. The story provides:
+- A headline and lead summarising the USAID training and the involvement of a Soros‑funded group.
+- Details on GDI co‑founder Danny Rogers’ remarks about Breitbart News cherry‑picking factual elements.
+- Context about the Trump administration’s release of 1.1 GB of USAID internal records.
+- Background on USAID’s relationship with GDI and Soros‑linked funding.
+- The broader political backdrop of President Trump’s criticism of USAID.
+- Proper block‑quote formatting for direct quotations and a concluding sentence linking the theme of disinformation versus fact‑based reporting.
 
-**Created auxiliary files for the orchestrator**
-- `pr-description.md` – this description of the changes.
-- `commit-message.txt` – a concise commit message summarising the added story file.
-
-No existing code, tests, or other documentation were modified. The repository's build and test processes remain unchanged.
+No existing code, tests, or other files were modified. This addition is purely documentation and does not affect the build or runtime behavior of the project.
