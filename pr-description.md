@@ -1,11 +1,11 @@
-## Pull Request Description
+# Pull Request Description
 
-**Added** a new narrative markdown file `story-usaid-disinformation.md` that documents the release of a USAID training recording involving the Global Disinformation Index (GDI) and its Soros‑funded connections. The story provides:
-- A headline and lead summarising the USAID training and the involvement of a Soros‑funded group.
-- Details on GDI co‑founder Danny Rogers’ remarks about Breitbart News cherry‑picking factual elements.
-- Context about the Trump administration’s release of 1.1 GB of USAID internal records.
-- Background on USAID’s relationship with GDI and Soros‑linked funding.
-- The broader political backdrop of President Trump’s criticism of USAID.
-- Proper block‑quote formatting for direct quotations and a concluding sentence linking the theme of disinformation versus fact‑based reporting.
+Implemented a lightweight in‑game UI feature to display a news‑style story about the Israeli parliamentary inquiry.
 
-No existing code, tests, or other files were modified. This addition is purely documentation and does not affect the build or runtime behavior of the project.
+### Changes Made
+- **src/ui.js**: Imported `showStory` from the new module, added a **Story** button to the build menu, and attached a click handler to open the story overlay.
+- **src/story.js**: New module providing `STORY_TEXT` constant and `showStory()` function that creates a dismissible overlay with the story content.
+- **test/story.test.js**: Added unit test verifying the module exports and that the story text contains the expected keyword.
+- Updated UI initialization to integrate the new button and handler.
+
+The new feature is fully covered by the added test and does not affect existing functionality.
