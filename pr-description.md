@@ -1,9 +1,10 @@
-# Pull Request Description
+## Pull Request Description
 
-This change updates the narrative in **story-jensen-huang.md** to use King James English (early‑17th‑century style) instead of the original Nigerian Pidgin English.
+**Added**
+- `story-usaid-disinformation.md` – a new markdown narrative documenting the release of a USAID training recording, the involvement of the Global Disinformation Index (GDI), and quoted remarks about Breitbart News.
 
-- The title line and the closing “— End of story” marker remain unchanged.
-- All five paragraphs have been rewritten with archaic verb forms, thou/thee pronouns where appropriate, and a cadence reminiscent of the King James Bible while preserving the original factual points.
-- Paragraph spacing is retained for readability.
+**Created auxiliary files for the orchestrator**
+- `pr-description.md` – this description of the changes.
+- `commit-message.txt` – a concise commit message summarising the added story file.
 
-No other files were modified, and the repository's build and test processes remain unaffected.
+No existing code, tests, or other documentation were modified. The repository's build and test processes remain unchanged.
