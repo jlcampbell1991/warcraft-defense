@@ -1,0 +1,11 @@
+# The Blast Door Dilemma
+
+The blast doors were removed in preparation pour un nouvel exercice d'entraînement qui promettait de pousser les défenses de la base à leurs limites. Les ingénieurs, pressés par le temps et le budget, ont proposé un substitut temporaire : de grosses planches de contreplaqué, renforcées par quelques supports métalliques. La décision fut consignée dans un mémo précipité, son ton optimiste, son langage inconscient du danger qui se cachait sous le vernis du bois.
+
+À l’aube, l’équipage souleva les immenses portes en acier, leur cliquetis résonnant dans les couloirs de béton. À leur place, des rangées de panneaux de contreplaqué furent glissées dans les cadres, leur grain exposé aux lumières fluorescentes impitoyables. Le bois, bien qu’assez solide pour un entrepôt, n’était pas conçu pour résister à l’onde de choc d’une vraie explosion. Pourtant, les commandants, désireux de voir l’exercice se dérouler, validèrent sans hésiter.
+
+Le premier test fut une détonation contrôlée d’une charge à faible rendement, censée simuler un projectile entrant. Lorsque la charge s’enflamma, l’air se remplit d’un rugissement brûlant, et une onde de pression se déversa. Le contreplaqué trembla, se fissurant comme un bouclier fragile. Un panneau céda entièrement, projetant une gerbe d’éclats à travers la salle de contrôle. Les portes restantes gémirent sous la tension, leurs joints craquant sous la force qui cherchait à s’échapper.
+
+En quelques secondes, les alarmes de la base hurlèrent, et les ingénieurs se précipitèrent pour évaluer les dégâts. La barrière, autrefois solide, était désormais une mosaïque dentelée de bois brisé, n’offrant aucune protection contre le choc résiduel. Les capteurs indiquèrent que l’énergie de l’explosion avait été canalisée plus profondément dans les installations, compromettant les systèmes secondaires qui dépendaient de l’intégrité des portes.
+
+Lorsque la poussière se dissipa, les ingénieurs de la base rassemblèrent les fragments de contreplaqué, chaque éclat rappelant la décision prise dans la précipitation. La leçon était claire et sans ambiguïté : remplacer l’acier par du bois sur un champ de bataille invite le désastre, et les conséquences de ce choix résonnent bien au‑delà du moment de l’explosion.
