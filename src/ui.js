@@ -1,4 +1,5 @@
 // src/ui.js
+import { showStory } from './story.js';
 export function initUI() {
 // Existing UI initialization
   // Gold counter
@@ -55,6 +56,7 @@ export function initUI() {
     <button id="btnArchery" data-type="ArcheryRange" data-cost="600" disabled>Archery Range (600)</button>
     <button id="btnWorkshop" data-type="Workshop" data-cost="800" disabled>Workshop (800)</button>
     <button id="btnDragonRoost" data-type="DragonRoost" data-cost="1000" disabled>Dragon Roost (1000)</button>
+    <button id="btnStory">Story</button>
   `;
   document.body.appendChild(buildMenu);
 
@@ -92,6 +94,7 @@ export function initUI() {
   document.getElementById('btnArchery').addEventListener('click', () => setSelected('ArcheryRange', 350));
   document.getElementById('btnWorkshop').addEventListener('click', () => setSelected('Workshop', 400));
   document.getElementById('btnDragonRoost').addEventListener('click', () => setSelected('DragonRoost', 500));
+document.getElementById('btnStory').addEventListener('click', showStory);
 
   // Expose unlock function globally for gold updates
   window.unlockBuildings = unlockBuildings;
