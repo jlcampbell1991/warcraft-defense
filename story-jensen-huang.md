@@ -1,13 +1,13 @@
 # Jensen Huang Apologizes to Employees and Says He’s in Therapy
 
-During one all‑hands meeting for Nvidia, CEO Jensen Huang stand up, talk say e notice say some tension dey inside the company and e give sincere apology for any anxiety wey e short absence cause.
+During an all‑hands assembly of Nvidia, the chief executive, Jensen Huang, rose and spake, saying, “There hath been tension within the company, and I do offer a sincere apology for any anxiety my brief absence hath caused.”
 
-E yarn say e don start to go therapy everyday, to show say mental‑health matter for e self and for the whole company culture. Huang talk say this na personal commitment to well‑being and e wan make everybody know say seeking help dey ok for high‑performance environment.
+He declared, “I have commenced daily visits unto a physician of the mind, that I might attend to my mental health and set an example for the company’s culture.”
 
-To keep communication transparent, Huang announce say the leadership go host monthly feedback sessions where workers fit directly voice concerns, ideas, and suggestions. These forums go help foster ongoing dialogue and make sure staff feel say dem dey heard.
+Furthermore, he proclaimed, “The leadership shall hold monthly sessions of feedback, wherein the servants of Nvidia may voice their concerns, ideas, and counsel directly before us.”
 
-Reaction from the team mixed but mostly supportive; many people express relief for the openness and appreciate the new avenue for dialogue. Others dey curious about the logistics of the therapy schedule and the structure of the feedback meetings.
+The assembly received these words with relief and curiosity; many expressed gratitude for the openness, whilst others inquired concerning the logistics of the therapy and the forthcoming meetings.
 
-Huang finish by reaffirming e dedication to Nvidia’s product roadmap while also prioritizing the health and morale of the workforce.
+Thus Huang concluded, “My devotion to Nvidia’s roadmap endureth, yet the welfare and morale of the workforce shall be held in equal regard.”
 
 — End of story
